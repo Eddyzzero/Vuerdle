@@ -3,6 +3,5 @@
 @import "tailwindcss";
 
 :root {
-    --font-poppins: 'Poppins', sans-serif;
     font-family: var(--font-poppins);
 }

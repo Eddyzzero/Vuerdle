@@ -1,7 +1,7 @@
 // Ce fichier contient la fonction pour récupérer un mot aléatoire depuis l'API Trouve-Mot
 export async function getRandomWord() {
   try {
-    const response = await fetch("https://trouve-mot.fr/api/random");
+    const response = await fetch("https://trouve-mot.fr/api/size/5");
     const data = await response.json();
 
     // L'API retourne un tableau avec un seul objet contenant le mot
