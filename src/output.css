@@ -1,0 +1,15 @@
+/*! tailwindcss v4.1.6 | MIT License | https://tailwindcss.com */
+.flex {
+  display: flex;
+}
+.justify-around {
+  justify-content: space-around;
+}
+.text-center {
+  text-align: center;
+}
+.transition-all {
+  transition-property: all;
+  transition-timing-function: var(--tw-ease, ease);
+  transition-duration: var(--tw-duration, 0s);
+}
