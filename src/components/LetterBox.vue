@@ -1,8 +1,7 @@
 <template>
   <div
     class="w-14 h-14 flex items-center justify-center border-2 text-xl font-bold uppercase transition-all duration-200"
-    :class="boxClasses"
-  >
+    :class="boxClasses">
     {{ letter }}
   </div>
 </template>
