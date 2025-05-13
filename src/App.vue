@@ -1,9 +1,8 @@
 <template>
-    <div class="app">
-        <h1>Vuerdle</h1>
+    <div class="max-w-3xl mx-auto p-8 text-center">
+        <h1 class="text-3xl font-bold text-gray-800 mb-8">Vuerdle</h1>
         <Score ref="scoreComponent" />
-        <div class="game-container">
-            <!-- Ici, vous ajouterez votre grille de jeu -->
+        <div class="my-8">
         </div>
     </div>
 </template>
@@ -34,21 +33,3 @@ export default {
     }
 }
 </script>
-
-<style>
-.app {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem;
-    text-align: center;
-}
-
-h1 {
-    color: #2c3e50;
-    margin-bottom: 2rem;
-}
-
-.game-container {
-    margin: 2rem 0;
-}
-</style>
