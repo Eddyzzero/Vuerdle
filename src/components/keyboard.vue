@@ -1,23 +1,11 @@
 <template>
   <div class="keyboard">
     <div class="row" v-for="(row, rowIndex) in rows" :key="rowIndex">
-      <KeyboardKey
-        v-for="key in row"
-        :key="key"
-        :letter="key"
-        :status="keyStatuses[key]"
-        @press="emitKey"
-      />
+      <KeyboardKey v-for="key in row" :key="key" :letter="key" :status="keyStatuses[key]" @press="emitKey" />
     </div>
     <div class="row">
       <KeyboardKey letter="ENTER" @press="emitKey" />
-      <KeyboardKey
-        v-for="key in specialRow"
-        :key="key"
-        :letter="key"
-        :status="keyStatuses[key]"
-        @press="emitKey"
-      />
+      <KeyboardKey v-for="key in specialRow" :key="key" :letter="key" :status="keyStatuses[key]" @press="emitKey" />
       <KeyboardKey letter="BACKSPACE" @press="emitKey" />
     </div>
   </div>
@@ -31,8 +19,12 @@ export default {
   props: {
     keyStatuses: {
       type: Object,
-      required: true,
+      required: true
     },
+    letter: {
+      type: String,
+      required: true
+    }
   },
   components: {
     KeyboardKey,
@@ -61,6 +53,7 @@ export default {
   align-items: center;
   gap: 0.25rem;
 }
+
 .row {
   display: flex;
   gap: 0.25rem;
