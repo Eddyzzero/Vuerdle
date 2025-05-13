@@ -1,16 +1,14 @@
 <template>
-  <button
-    class="key"
-    :class="status"
-    @click="$emit('press', letter)"
-  >
-    {{ label }}
+  <button class="key" :class="statusClass" @click="$emit('press', letter)">
+    <span v-if="letter === 'ENTER'">↩</span>
+    <span v-else-if="letter === 'BACKSPACE'">⌫</span>
+    <span v-else>{{ letter }}</span>
   </button>
 </template>
 
 <script>
 export default {
-  name: 'KeyboardKey',
+  name: "KeyboardKey",
   props: {
     letter: {
       type: String,
@@ -18,14 +16,21 @@ export default {
     },
     status: {
       type: String,
-      default: '',
+      default: "",
     },
   },
   computed: {
-    label() {
-      if (this.letter === 'BACKSPACE') return '⌫';
-      if (this.letter === 'ENTER') return '⏎';
-      return this.letter;
+    statusClass() {
+      switch (this.status) {
+        case "correct":
+          return "key-correct";
+        case "present":
+          return "key-present";
+        case "absent":
+          return "key-absent";
+        default:
+          return "";
+      }
     },
   },
 };
@@ -33,28 +38,32 @@ export default {
 
 <style scoped>
 .key {
-  padding: 0.5rem 0.75rem;
+  width: 40px;
+  height: 58px;
+  background-color: #999;
   border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  text-transform: uppercase;
-  background-color: #e0e0e0;
+  border-radius: 6px;
+  margin: 2px;
+  font-weight: bold;
+  font-size: 14px;
+  color: white;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
 }
-.key:hover {
-  background-color: #d5d5d5;
-}
-.correct {
+
+.key-correct {
   background-color: #4caf50;
-  color: white;
 }
-.present {
-  background-color: #ffc107;
-  color: white;
+
+.key-present {
+  background-color: #fbbc04;
 }
-.absent {
-  background-color: #9e9e9e;
-  color: white;
+
+.key-absent {
+  background-color: #787c7e;
 }
 </style>

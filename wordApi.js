@@ -1,3 +1,11 @@
+// Fonction pour nettoyer un mot : retirer les accents et mettre en majuscule
+function cleanWord(word) {
+  return word
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toUpperCase();
+}
+
 // Ce fichier contient la fonction pour récupérer un mot aléatoire depuis l'API Trouve-Mot
 export async function getRandomWord() {
   try {
