@@ -12,16 +12,12 @@
             <LetterBox letter="D" status="" />
             <LetterBox letter="" status="" />
         </div>
-        <KeyboardKey />
-        <Keyboard />
     </main>
 </template>
 
 <script>
 import Word from "./components/Word.vue";
 import LetterBox from "./components/LetterBox.vue";
-import KeyboardKey from "./components/KeyboardKey.vue";
-import Keyboard from "./components/keyboard.vue";
 
 export default {
     name: "App",
@@ -29,8 +25,6 @@ export default {
     components: {
         Word,
         LetterBox,
-        KeyboardKey,
-        Keyboard
     },
 };
 </script>
