@@ -1,23 +1,11 @@
 <template>
   <div class="keyboard">
     <div class="row" v-for="(row, i) in rows" :key="i">
-      <KeyboardKey
-        v-for="key in row"
-        :key="key"
-        :letter="key"
-        :status="keyStatuses[key]"
-        @press="emitKey"
-      />
+      <KeyboardKey v-for="key in row" :key="key" :letter="key" :status="keyStatuses[key]" @press="emitKey" />
     </div>
     <div class="row">
       <KeyboardKey letter="ENTER" @press="emitKey" />
-      <KeyboardKey
-        v-for="key in specialRow"
-        :key="key"
-        :letter="key"
-        :status="keyStatuses[key]"
-        @press="emitKey"
-      />
+      <KeyboardKey v-for="key in specialRow" :key="key" :letter="key" :status="keyStatuses[key]" @press="emitKey" />
       <KeyboardKey letter="BACKSPACE" @press="emitKey" />
     </div>
   </div>
@@ -61,10 +49,12 @@ export default {
   margin-top: 20px;
   width: fit-content;
 }
+
 .row {
   display: flex;
   justify-content: center;
 }
+
 .clavier-container {
   display: flex;
   justify-content: center;
