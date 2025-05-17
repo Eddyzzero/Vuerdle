@@ -23,10 +23,11 @@
 </template>
 
 <script>
-import Keyboard from "./components/Keyboard.vue";
+
 import Word from "./components/Word.vue";
 import LetterBox from "./components/LetterBox.vue";
 import Modal from "./components/Modal.vue";
+import Keyboard from "./components/Keyboard.vue";
 
 export default {
     name: "App",
@@ -101,6 +102,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 2rem;
 }
 
 .header {

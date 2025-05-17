@@ -3,9 +3,13 @@
 @import "tailwindcss";
 
 :root {
-    font-family: var(--font-poppins);
+    font-family: poppins, sans-serif;
 }
 
+@theme {
+    --color-light-blue: #118AB2,
+        --color-dark-blue: #073B4C,
+}
 
 #app {
     max-width: 1280px;
@@ -34,9 +38,9 @@ a,
         place-items: center;
     }
 
-    #app {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        padding: 0 2rem;
-    }
+}
+
+body,
+html {
+    font-family: var(--font-poppins);
 }

@@ -4,7 +4,7 @@
       <KeyboardKey v-for="key in row" :key="key" :letter="key" :status="keyStatuses[key]" @press="emitKey" />
     </div>
     <div class="row">
-      <KeyboardKey letter="ENTER" @press="emitKey" />
+      <KeyboardKey letter="ENTER" @press="emitKey" class=" w-80" />
       <KeyboardKey v-for="key in specialRow" :key="key" :letter="key" :status="keyStatuses[key]" @press="emitKey" />
       <KeyboardKey letter="BACKSPACE" @press="emitKey" />
     </div>
