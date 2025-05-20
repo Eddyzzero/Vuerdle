@@ -1,6 +1,5 @@
 <template>
   <div class="keyboard">
-<<<<<<< HEAD
     <div class="row">
       <KeyboardKey
         v-for="key in row1"
@@ -29,15 +28,6 @@
         @press="handleKey"
       />
       <KeyboardKey letter="BACKSPACE" @press="$emit('delete')" />
-=======
-    <div class="row" v-for="(row, i) in rows" :key="i">
-      <KeyboardKey v-for="key in row" :key="key" :letter="key" :status="keyStatuses[key]" @press="handlePress" />
-    </div>
-    <div class="row">
-      <KeyboardKey letter="ENTER" @press="handlePress" />
-      <KeyboardKey v-for="key in specialRow" :key="key" :letter="key" :status="keyStatuses[key]" @press="handlePress" />
-      <KeyboardKey letter="BACKSPACE" @press="handlePress" />
->>>>>>> 8204dd7fc025fb75392190d79ee2d3df5969ea9e
     </div>
   </div>
 </template>
