@@ -2,6 +2,7 @@
   <div class="app">
     <header class="header">
       <h1 class="color">Vuerdle</h1>
+      <DarkMode />
     </header>
 
     <main class="main">
@@ -28,6 +29,7 @@ import Word from "./components/Word.vue";
 import LetterBox from "./components/LetterBox.vue";
 import Modal from "./components/Modal.vue";
 import Keyboard from "./components/keyboard.vue";
+import DarkMode from "./components/DarkMode.vue";
 
 export default {
   name: "App",
@@ -35,7 +37,8 @@ export default {
     Keyboard,
     Word,
     LetterBox,
-    Modal
+    Modal,
+    DarkMode
   },
   data() {
     return {
