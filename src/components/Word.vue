@@ -24,4 +24,32 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+.word {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.letter {
+  width: 40px;
+  height: 40px;
+  background: #eee;
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  transition: background 0.3s, border-color 0.3s, color 0.3s;
+}
+
+/*  Mode sombre */
+body.dark .letter {
+  background: #333;
+  border-color: #888;
+  color: #f0f0f0;
+}
+</style>
