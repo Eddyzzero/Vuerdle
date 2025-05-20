@@ -3,10 +3,6 @@
 @import "tailwindcss";
 
 :root {
-<<<<<<< HEAD
-  font-family: var(--font-poppins);
-}
-=======
     font-family: poppins, sans-serif;
 }
 
@@ -48,4 +44,3 @@ body,
 html {
     font-family: var(--font-poppins);
 }
->>>>>>> feature/ModalResult

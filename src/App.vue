@@ -6,54 +6,92 @@
 
     <main class="main">
       <Word class="color" />
+      <div style="display: flex; gap: 8px">
+        <LetterBox :letter="'V'" :status="'correct'" />
+        <LetterBox :letter="'U'" :status="'present'" />
+        <LetterBox :letter="'E'" :status="'absent'" />
+        <LetterBox :letter="'R'" :status="null" />
+        <LetterBox :letter="'D'" :status="null" />
+      </div>
 
-      <!-- gamegrid -->
-      <GameGrid :guesses="guesses" />
-
-      <!-- keyboard -->
       <Keyboard :keyStatuses="keyStatuses" @key-press="handleKeyPress" />
     </main>
+
+    <Modal :is-open="showModal" :word="currentWord" :message="modalMessage" @close="closeModal"
+      @next-word="startNewGame" />
   </div>
 </template>
 
 <script>
+
 import Word from "./components/Word.vue";
-import Keyboard from "./components/Keyboard.vue";
 import LetterBox from "./components/LetterBox.vue";
-import GameGrid from "./components/GameGrid.vue";
-import { getRandomWord } from "../wordApi";
+import Modal from "./components/Modal.vue";
+import Keyboard from "./components/keyboard.vue";
 
 export default {
   name: "App",
   components: {
-    Word,
     Keyboard,
+    Word,
     LetterBox,
-    GameGrid,
+    Modal
   },
   data() {
     return {
-      wordToGuess: "",
-      currentAttemptIndex: 0,
-      guesses: Array(6)
-        .fill()
-        .map(() => ({
-          letters: Array(5).fill(""),
-          statuses: Array(5).fill(null),
-        })),
-      keyStatuses: {},
+      keyStatuses: {
+        A: "correct",
+        E: "present",
+        M: "absent",
+      },
+      showModal: false,
+      currentWord: '',
+      modalMessage: '',
     };
   },
-  async created() {
-    try {
-      const word = await getRandomWord();
-      this.wordToGuess = word;
-      console.log("Mot à deviner :", word);
-    } catch (e) {
-      console.error("Erreur chargement mot :", e);
+  created() {
+    // Vérifier l'URL au chargement
+    const urlParams = new URLSearchParams(window.location.search);
+    const showDemo = urlParams.get('demo');
+    if (showDemo === 'true') {
+      this.showWordModal('VUERDLE', true);
     }
   },
   methods: {
+    handleKeyPress(letter) {
+      console.log("Touche appuyée :", letter);
+    },
+    showWordModal(word, isSuccess) {
+      this.currentWord = word;
+      this.modalMessage = isSuccess
+        ? 'Félicitations ! Vous avez trouvé le mot !'
+        : 'Dommage, vous ferez mieux la prochaine fois.';
+      this.showModal = true;
+
+      // Mettre à jour l'URL
+      const url = new URL(window.location);
+      url.searchParams.set('demo', 'true');
+      window.history.pushState({}, '', url);
+    },
+    closeModal() {
+      this.showModal = false;
+      // Retirer le paramètre de l'URL
+      const url = new URL(window.location);
+      url.searchParams.delete('demo');
+      window.history.pushState({}, '', url);
+    },
+    startNewGame() {
+      this.showModal = false;
+      // Réinitialiser le jeu ici
+      this.currentWord = '';
+      this.modalMessage = '';
+      // Retirer le paramètre de l'URL
+      const url = new URL(window.location);
+      url.searchParams.delete('demo');
+      window.history.pushState({}, '', url);
+
+    },
+
     handleKeyPress(letter) {
       const current = this.guesses[this.currentAttemptIndex];
 
@@ -111,7 +149,7 @@ export default {
 
       this.currentAttemptIndex++;
     },
-  },
+  }
 };
 </script>
 
@@ -123,6 +161,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 2rem;
 }
 
 .header {
