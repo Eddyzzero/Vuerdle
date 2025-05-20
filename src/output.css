@@ -1,9 +1,5 @@
 /*! tailwindcss v4.1.7 | MIT License | https://tailwindcss.com */
-<<<<<<< HEAD
 @import url("https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Athiti:wght@200;300;400;500;600;700&family=Delius&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-=======
-@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Athiti:wght@200;300;400;500;600;700&family=Delius&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
->>>>>>> feature/ModalResult
 @layer properties;
 @layer theme, base, components, utilities;
 
@@ -274,30 +270,39 @@
   .absolute {
     position: absolute;
   }
+
   .fixed {
     position: fixed;
   }
+
   .inset-0 {
     inset: calc(var(--spacing) * 0);
   }
+
   .z-10 {
     z-index: 10;
   }
+
   .z-50 {
     z-index: 50;
   }
+
   .mx-4 {
     margin-inline: calc(var(--spacing) * 4);
   }
+
   .mt-2 {
     margin-top: calc(var(--spacing) * 2);
   }
+
   .mb-6 {
     margin-bottom: calc(var(--spacing) * 6);
   }
+
   .mb-10 {
     margin-bottom: calc(var(--spacing) * 10);
   }
+
   .flex {
     display: flex;
   }
@@ -309,7 +314,6 @@
   .h-14 {
     height: calc(var(--spacing) * 14);
   }
-<<<<<<< HEAD
 
   .h-16 {
     height: calc(var(--spacing) * 16);
@@ -341,38 +345,6 @@
 
   .gap-4 {
     gap: calc(var(--spacing) * 4);
-=======
-  .w-14 {
-    width: calc(var(--spacing) * 14);
-  }
-  .w-80 {
-    width: calc(var(--spacing) * 80);
-  }
-  .w-full {
-    width: 100%;
-  }
-  .max-w-md {
-    max-width: var(--container-md);
-  }
-  .cursor-pointer {
-    cursor: pointer;
-  }
-  .items-center {
-    align-items: center;
-  }
-  .justify-between {
-    justify-content: space-between;
-  }
-  .justify-center {
-    justify-content: center;
-  }
-  .rounded-lg {
-    border-radius: var(--radius-lg);
-  }
-  .border {
-    border-style: var(--tw-border-style);
-    border-width: 1px;
->>>>>>> feature/ModalResult
   }
 
   .border {
@@ -384,14 +356,7 @@
     border-style: var(--tw-border-style);
     border-width: 2px;
   }
-<<<<<<< HEAD
 
-=======
-  .border-none {
-    --tw-border-style: none;
-    border-style: none;
-  }
->>>>>>> feature/ModalResult
   .border-gray-300 {
     border-color: var(--color-gray-300);
   }
@@ -407,20 +372,9 @@
   .border-yellow-500 {
     border-color: var(--color-yellow-500);
   }
-<<<<<<< HEAD
 
   .bg-gray-100 {
     background-color: var(--color-gray-100);
-=======
-  .bg-black\/50 {
-    background-color: color-mix(in srgb, #000 50%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      background-color: color-mix(in oklab, var(--color-black) 50%, transparent);
-    }
-  }
-  .bg-blue-700 {
-    background-color: var(--color-blue-700);
->>>>>>> feature/ModalResult
   }
 
   .bg-gray-400 {
@@ -430,13 +384,7 @@
   .bg-green-500 {
     background-color: var(--color-green-500);
   }
-<<<<<<< HEAD
 
-=======
-  .bg-transparent {
-    background-color: transparent;
-  }
->>>>>>> feature/ModalResult
   .bg-white {
     background-color: var(--color-white);
   }
@@ -444,40 +392,15 @@
   .bg-yellow-500 {
     background-color: var(--color-yellow-500);
   }
-<<<<<<< HEAD
 
   .p-8 {
     padding: calc(var(--spacing) * 8);
-=======
-  .p-6 {
-    padding: calc(var(--spacing) * 6);
->>>>>>> feature/ModalResult
   }
 
   .p-20 {
     padding: calc(var(--spacing) * 20);
   }
-<<<<<<< HEAD
 
-=======
-  .px-6 {
-    padding-inline: calc(var(--spacing) * 6);
-  }
-  .py-2 {
-    padding-block: calc(var(--spacing) * 2);
-  }
-  .text-center {
-    text-align: center;
-  }
-  .text-2xl {
-    font-size: var(--text-2xl);
-    line-height: var(--tw-leading, var(--text-2xl--line-height));
-  }
-  .text-lg {
-    font-size: var(--text-lg);
-    line-height: var(--tw-leading, var(--text-lg--line-height));
-  }
->>>>>>> feature/ModalResult
   .text-xl {
     font-size: var(--text-xl);
     line-height: var(--tw-leading, var(--text-xl--line-height));
@@ -496,22 +419,7 @@
   .text-black {
     color: var(--color-black);
   }
-<<<<<<< HEAD
 
-=======
-  .text-gray-500 {
-    color: var(--color-gray-500);
-  }
-  .text-gray-600 {
-    color: var(--color-gray-600);
-  }
-  .text-gray-800 {
-    color: var(--color-gray-800);
-  }
-  .text-green-600 {
-    color: var(--color-green-600);
-  }
->>>>>>> feature/ModalResult
   .text-white {
     color: var(--color-white);
   }
@@ -519,7 +427,6 @@
   .uppercase {
     text-transform: uppercase;
   }
-<<<<<<< HEAD
 
   .underline {
     text-decoration-line: underline;
@@ -530,57 +437,23 @@
     outline-width: 1px;
   }
 
-=======
-  .shadow-xl {
-    --tw-shadow: 0 20px 25px -5px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 8px 10px -6px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-  }
->>>>>>> feature/ModalResult
   .transition {
     transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, visibility, content-visibility, overlay, pointer-events;
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
   }
-<<<<<<< HEAD
 
-=======
->>>>>>> feature/ModalResult
   .transition-all {
     transition-property: all;
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
   }
-<<<<<<< HEAD
 
-=======
-  .transition-colors {
-    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
-    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
-    transition-duration: var(--tw-duration, var(--default-transition-duration));
-  }
->>>>>>> feature/ModalResult
   .duration-200 {
     --tw-duration: 200ms;
     transition-duration: 200ms;
   }
-<<<<<<< HEAD
 
-=======
-  .hover\:bg-blue-400 {
-    &:hover {
-      @media (hover: hover) {
-        background-color: var(--color-blue-400);
-      }
-    }
-  }
-  .hover\:text-gray-700 {
-    &:hover {
-      @media (hover: hover) {
-        color: var(--color-gray-700);
-      }
-    }
-  }
->>>>>>> feature/ModalResult
   .dark\:bg-gray-800 {
     @media (prefers-color-scheme: dark) {
       background-color: var(--color-gray-800);
@@ -597,36 +470,7 @@
 :root {
   font-family: poppins, sans-serif;
 }
-<<<<<<< HEAD
 
-=======
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
-}
-a, .green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
-}
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-}
-body, html {
-  font-family: var(--font-poppins);
-}
->>>>>>> feature/ModalResult
 @property --tw-border-style {
   syntax: "*";
   inherits: false;
@@ -642,7 +486,6 @@ body, html {
   syntax: "*";
   inherits: false;
 }
-<<<<<<< HEAD
 
 @property --tw-outline-style {
   syntax: "*";
@@ -650,73 +493,6 @@ body, html {
   initial-value: solid;
 }
 
-=======
-@property --tw-shadow {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0 0 #0000;
-}
-@property --tw-shadow-color {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-shadow-alpha {
-  syntax: "<percentage>";
-  inherits: false;
-  initial-value: 100%;
-}
-@property --tw-inset-shadow {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0 0 #0000;
-}
-@property --tw-inset-shadow-color {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-inset-shadow-alpha {
-  syntax: "<percentage>";
-  inherits: false;
-  initial-value: 100%;
-}
-@property --tw-ring-color {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-ring-shadow {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0 0 #0000;
-}
-@property --tw-inset-ring-color {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-inset-ring-shadow {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0 0 #0000;
-}
-@property --tw-ring-inset {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-ring-offset-width {
-  syntax: "<length>";
-  inherits: false;
-  initial-value: 0px;
-}
-@property --tw-ring-offset-color {
-  syntax: "*";
-  inherits: false;
-  initial-value: #fff;
-}
-@property --tw-ring-offset-shadow {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0 0 #0000;
-}
->>>>>>> feature/ModalResult
 @property --tw-duration {
   syntax: "*";
   inherits: false;
@@ -732,24 +508,7 @@ body, html {
       --tw-border-style: solid;
       --tw-font-weight: initial;
       --tw-tracking: initial;
-<<<<<<< HEAD
       --tw-outline-style: solid;
-=======
-      --tw-shadow: 0 0 #0000;
-      --tw-shadow-color: initial;
-      --tw-shadow-alpha: 100%;
-      --tw-inset-shadow: 0 0 #0000;
-      --tw-inset-shadow-color: initial;
-      --tw-inset-shadow-alpha: 100%;
-      --tw-ring-color: initial;
-      --tw-ring-shadow: 0 0 #0000;
-      --tw-inset-ring-color: initial;
-      --tw-inset-ring-shadow: 0 0 #0000;
-      --tw-ring-inset: initial;
-      --tw-ring-offset-width: 0px;
-      --tw-ring-offset-color: #fff;
-      --tw-ring-offset-shadow: 0 0 #0000;
->>>>>>> feature/ModalResult
       --tw-duration: initial;
     }
   }

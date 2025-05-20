@@ -1,30 +1,12 @@
 <template>
   <div class="keyboard">
     <div class="row" v-for="(row, i) in rows" :key="i">
-      <KeyboardKey
-        v-for="key in row"
-        :key="key"
-        :letter="key"
-        :status="keyStatuses[key]"
-        @press="handlePress"
-      />
+      <KeyboardKey v-for="key in row" :key="key" :letter="key" :status="keyStatuses[key]" @press="handlePress" />
     </div>
     <div class="row">
-<<<<<<< HEAD:src/components/Keyboard.vue
       <KeyboardKey letter="ENTER" @press="handlePress" />
-      <KeyboardKey
-        v-for="key in specialRow"
-        :key="key"
-        :letter="key"
-        :status="keyStatuses[key]"
-        @press="handlePress"
-      />
+      <KeyboardKey v-for="key in specialRow" :key="key" :letter="key" :status="keyStatuses[key]" @press="handlePress" />
       <KeyboardKey letter="BACKSPACE" @press="handlePress" />
-=======
-      <KeyboardKey letter="ENTER" @press="emitKey" class=" w-80" />
-      <KeyboardKey v-for="key in specialRow" :key="key" :letter="key" :status="keyStatuses[key]" @press="emitKey" />
-      <KeyboardKey letter="BACKSPACE" @press="emitKey" />
->>>>>>> feature/ModalResult:src/components/keyboard.vue
     </div>
   </div>
 </template>
