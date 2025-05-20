@@ -16,8 +16,14 @@
 export default {
   name: "KeyboardKey",
   props: {
-    letter: { type: String, required: true },
-    status: { type: String, default: null }, // correct | present | absent | null
+    letter: {
+      type: String,
+      required: true,
+    },
+    status: {
+      type: String,
+      default: null,
+    },
   },
   computed: {
     statusClass() {
@@ -35,3 +41,35 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.key {
+  width: 43px;
+  height: 58px;
+  background-color: #999;
+  border: none;
+  border-radius: 6px;
+  margin: 2px;
+  font-weight: bold;
+  font-size: 14px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+}
+
+.key-correct {
+  background-color: #6aaa64;
+}
+
+.key-present {
+  background-color: #c9b458;
+}
+
+.key-absent {
+  background-color: #787c7e;
+}
+</style>
