@@ -6,19 +6,19 @@
         :key="key"
         :letter="key"
         :status="keyStatuses[key]"
-        @press="emitKey"
+        @press="handlePress"
       />
     </div>
     <div class="row">
-      <KeyboardKey letter="ENTER" @press="emitKey" />
+      <KeyboardKey letter="ENTER" @press="handlePress" />
       <KeyboardKey
         v-for="key in specialRow"
         :key="key"
         :letter="key"
         :status="keyStatuses[key]"
-        @press="emitKey"
+        @press="handlePress"
       />
-      <KeyboardKey letter="BACKSPACE" @press="emitKey" />
+      <KeyboardKey letter="BACKSPACE" @press="handlePress" />
     </div>
   </div>
 </template>
@@ -45,7 +45,7 @@ export default {
     };
   },
   methods: {
-    emitKey(letter) {
+    handlePress(letter) {
       this.$emit("key-press", letter);
     },
   },
@@ -59,15 +59,10 @@ export default {
   align-items: center;
   gap: 6px;
   margin-top: 20px;
-  width: fit-content;
 }
+
 .row {
   display: flex;
   justify-content: center;
-}
-.clavier-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 1rem;
 }
 </style>

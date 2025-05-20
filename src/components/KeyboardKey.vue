@@ -10,14 +10,8 @@
 export default {
   name: "KeyboardKey",
   props: {
-    letter: {
-      type: String,
-      required: true,
-    },
-    status: {
-      type: String,
-      default: "",
-    },
+    letter: { type: String, required: true },
+    status: { type: String, default: null }, // correct | present | absent | null
   },
   computed: {
     statusClass() {
