@@ -1,42 +1,61 @@
 <template>
   <div class="grid">
     <div v-for="(row, rowIndex) in allRows" :key="rowIndex" class="grid-row">
-      <div v-for="(cell, colIndex) in row" :key="colIndex" class="cell" :class="cell.status">
-        {{ cell.letter }}
-      </div>
+      <LetterBox v-for="(cell, colIndex) in row" :key="colIndex" :letter="cell.letter" :status="cell.status" />
     </div>
   </div>
 </template>
 
 <script>
+import LetterBox from './LetterBox.vue';
+
 export default {
   name: "GameGrid",
+  components: {
+    LetterBox
+  },
   props: {
-    guesses: Array,
-    currentGuess: String,
+    guesses: {
+      type: Array,
+      required: true,
+      default: () => []
+    },
+    currentGuess: {
+      type: String,
+      default: ''
+    },
+    maxAttempts: {
+      type: Number,
+      default: 6
+    }
   },
   computed: {
     allRows() {
       const rows = [...this.guesses];
 
-      if (this.guesses.length < 6) {
-        rows.push(
-          this.currentGuess
-            .padEnd(5)
-            .split("")
-            .map((l) => ({ letter: l, status: "" }))
-        );
+      // Ajouter la ligne courante avec le mot en cours de saisie
+      if (rows.length < this.maxAttempts) {
+        const currentGuessRow = this.currentGuess.split('').map(letter => ({
+          letter,
+          status: ''
+        }));
+
+        // Compléter avec des cases vides si nécessaire
+        while (currentGuessRow.length < 5) {
+          currentGuessRow.push({ letter: '', status: '' });
+        }
+
+        rows.push(currentGuessRow);
       }
 
-      while (rows.length < 6) {
-        rows.push(
-          Array.from({ length: 5 }, () => ({ letter: "", status: "" }))
-        );
+      // Remplir les lignes restantes avec des cases vides
+      while (rows.length < this.maxAttempts) {
+        rows.push(Array(5).fill().map(() => ({ letter: '', status: '' })));
       }
 
       return rows;
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -45,42 +64,12 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.2rem;
-  margin-bottom: 1rem;
+  gap: 0.5rem;
+  margin: 1rem 0;
 }
 
 .grid-row {
   display: flex;
-  gap: 0.2rem;
-}
-
-.cell {
-  width: 3rem;
-  height: 3rem;
-  border: 2px solid #ccc;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 1.5rem;
-  text-transform: uppercase;
-  background-color: white;
-  transition: background-color 0.3s;
-}
-
-.cell.correct {
-  background-color: #6aaa64;
-  color: white;
-}
-
-.cell.present {
-  background-color: #c9b458;
-  color: white;
-}
-
-.cell.absent {
-  background-color: #787c7e;
-  color: white;
+  gap: 0.5rem;
 }
 </style>
-<style scoped></style>

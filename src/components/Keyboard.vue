@@ -1,12 +1,13 @@
 <template>
   <div class="keyboard">
     <div class="row" v-for="(row, i) in rows" :key="i">
-      <KeyboardKey v-for="key in row" :key="key" :letter="key" :status="keyStatuses[key]" @press="handlePress" />
+      <KeyboardKey v-for="key in row" :key="key" :letter="key" :status="getLetterStatus(key)" @press="handlePress" />
     </div>
     <div class="row">
-      <KeyboardKey letter="ENTER" @press="handlePress" />
-      <KeyboardKey v-for="key in specialRow" :key="key" :letter="key" :status="keyStatuses[key]" @press="handlePress" />
-      <KeyboardKey letter="BACKSPACE" @press="handlePress" />
+      <KeyboardKey letter="ENTER" @press="$emit('enter')" />
+      <KeyboardKey v-for="key in specialRow" :key="key" :letter="key" :status="getLetterStatus(key)"
+        @press="handlePress" />
+      <KeyboardKey letter="BACKSPACE" @press="$emit('delete')" />
     </div>
   </div>
 </template>
@@ -18,10 +19,10 @@ export default {
   name: "Keyboard",
   components: { KeyboardKey },
   props: {
-    keyStatuses: {
-      type: Object,
-      default: () => ({}),
-    },
+    getLetterStatus: {
+      type: Function,
+      required: true
+    }
   },
   data() {
     return {
@@ -34,7 +35,7 @@ export default {
   },
   methods: {
     handlePress(letter) {
-      this.$emit("key-press", letter);
+      this.$emit("letter", letter);
     },
   },
 };
@@ -52,5 +53,6 @@ export default {
 .row {
   display: flex;
   justify-content: center;
+  gap: 4px;
 }
 </style>
