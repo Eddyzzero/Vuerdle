@@ -7,10 +7,10 @@
     <main class="main">
       <Word class="color" />
 
-      <!-- ga -->
+      <!-- gamegrid -->
       <GameGrid :guesses="guesses" />
 
-      <!-- Clavier -->
+      <!-- keyboard -->
       <Keyboard :keyStatuses="keyStatuses" @key-press="handleKeyPress" />
     </main>
   </div>
@@ -80,7 +80,7 @@ export default {
       const guess = [...current.letters];
       const used = Array(5).fill(false);
 
-      // lettres correctes
+      // lettres ok
       for (let i = 0; i < 5; i++) {
         if (guess[i] === target[i]) {
           statuses[i] = "correct";
@@ -88,7 +88,7 @@ export default {
         }
       }
 
-      // lettres ok mais mal placé
+      // lettre ok mais mal placé
       for (let i = 0; i < 5; i++) {
         if (statuses[i]) continue;
         const index = target.findIndex(
@@ -110,26 +110,6 @@ export default {
       });
 
       this.currentAttemptIndex++;
-    },
-  },
-  name: "App",
-  components: {
-    Keyboard,
-    Word,
-    LetterBox,
-  },
-  data() {
-    return {
-      keyStatuses: {
-        A: "correct",
-        E: "present",
-        M: "absent",
-      },
-    };
-  },
-  methods: {
-    handleKeyPress(letter) {
-      console.log("Touche appuyée :", letter);
     },
   },
 };
