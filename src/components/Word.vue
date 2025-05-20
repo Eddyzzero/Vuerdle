@@ -1,7 +1,7 @@
 <template>
     <div class="flex justify-center items-center p-20">
-        <p class=" tracking-widest" v-if="word">{{ word }}</p>
-        <p v-else>Chargement...</p>
+        <p class="tracking-widest text-gray-900 dark:text-gray-100" v-if="word">{{ word }}</p>
+        <p class="text-gray-700 dark:text-gray-300" v-else>Chargement...</p>
     </div>
 </template>
 

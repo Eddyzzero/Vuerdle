@@ -1,13 +1,13 @@
 <template>
-  <div class="app">
+  <div class="app min-h-screen transition-colors duration-200 dark:bg-gray-900">
     <header class="header">
-      <h1 class="color">Vuerdle</h1>
+      <h1 class="text-gray-900 dark:text-white font-bold text-4xl">Vuerdle</h1>
       <DarkMode />
     </header>
 
     <main class="main">
-      <Word class="color" />
-      <div style="display: flex; gap: 8px">
+      <Word class="text-gray-900 dark:text-white" />
+      <div class="flex gap-2">
         <LetterBox :letter="'V'" :status="'correct'" />
         <LetterBox :letter="'U'" :status="'present'" />
         <LetterBox :letter="'E'" :status="'absent'" />
@@ -158,7 +158,6 @@ export default {
 
 <style scoped>
 .app {
-  background-color: #fef4dc;
   min-height: 100vh;
   color: white;
   display: flex;

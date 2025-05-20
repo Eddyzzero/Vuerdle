@@ -1,16 +1,8 @@
 <template>
-  <div class="game-grid">
-    <div
-      class="letter-row"
-      v-for="(guess, rowIndex) in guesses"
-      :key="rowIndex"
-    >
-      <LetterBox
-        v-for="(letter, colIndex) in 5"
-        :key="colIndex"
-        :letter="guess.letters[colIndex] || ''"
-        :status="guess.statuses[colIndex]"
-      />
+  <div class="flex flex-col gap-2 p-4">
+    <div class="flex gap-2 justify-center" v-for="(guess, rowIndex) in guesses" :key="rowIndex">
+      <LetterBox v-for="(letter, colIndex) in 5" :key="colIndex" :letter="guess.letters[colIndex] || ''"
+        :status="guess.statuses[colIndex]" />
     </div>
   </div>
 </template>
@@ -32,16 +24,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.game-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.letter-row {
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-}
-</style>
+<style scoped></style>
