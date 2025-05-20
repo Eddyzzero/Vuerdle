@@ -10,6 +10,7 @@
       />
     </div>
     <div class="row">
+<<<<<<< HEAD:src/components/Keyboard.vue
       <KeyboardKey letter="ENTER" @press="handlePress" />
       <KeyboardKey
         v-for="key in specialRow"
@@ -19,6 +20,11 @@
         @press="handlePress"
       />
       <KeyboardKey letter="BACKSPACE" @press="handlePress" />
+=======
+      <KeyboardKey letter="ENTER" @press="emitKey" class=" w-80" />
+      <KeyboardKey v-for="key in specialRow" :key="key" :letter="key" :status="keyStatuses[key]" @press="emitKey" />
+      <KeyboardKey letter="BACKSPACE" @press="emitKey" />
+>>>>>>> feature/ModalResult:src/components/keyboard.vue
     </div>
   </div>
 </template>
