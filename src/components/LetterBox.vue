@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="w-14 h-14 flex items-center justify-center border-2 text-xl font-bold uppercase transition-all duration-200"
-    :class="boxClasses"
-  >
+  <div class="letter-box" :class="status">
     {{ letter }}
   </div>
 </template>
@@ -17,22 +14,44 @@ export default {
     },
     status: {
       type: String,
-      default: null,
-    },
-  },
-  computed: {
-    boxClasses() {
-      switch (this.status) {
-        case "correct":
-          return "bg-green-500 text-white border-green-500";
-        case "present":
-          return "bg-yellow-500 text-white border-yellow-500";
-        case "absent":
-          return "bg-gray-400 text-white border-gray-400";
-        default:
-          return "bg-white text-black border-gray-300 dark:bg-gray-800 dark:text-white";
-      }
+      required: true,
+      validator: (value) =>
+        ["correct", "present", "absent", ""].includes(value),
     },
   },
 };
 </script>
+
+<style scoped>
+.letter-box {
+  width: 3rem;
+  height: 3rem;
+  border: 2px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: white;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.correct {
+  background-color: #6aaa64;
+  color: white;
+  border-color: #6aaa64;
+}
+
+.present {
+  background-color: #c9b458;
+  color: white;
+  border-color: #c9b458;
+}
+
+.absent {
+  background-color: #787c7e;
+  color: white;
+  border-color: #787c7e;
+}
+</style>
