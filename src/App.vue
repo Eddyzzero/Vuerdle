@@ -7,10 +7,10 @@
     <main class="main">
       <Word class="color" />
 
-      <!-- gamegrid -->
+      <!-- ga -->
       <GameGrid :guesses="guesses" />
 
-      <!-- keybaord -->
+      <!-- Clavier -->
       <Keyboard :keyStatuses="keyStatuses" @key-press="handleKeyPress" />
     </main>
   </div>
@@ -110,6 +110,26 @@ export default {
       });
 
       this.currentAttemptIndex++;
+    },
+  },
+  name: "App",
+  components: {
+    Keyboard,
+    Word,
+    LetterBox,
+  },
+  data() {
+    return {
+      keyStatuses: {
+        A: "correct",
+        E: "present",
+        M: "absent",
+      },
+    };
+  },
+  methods: {
+    handleKeyPress(letter) {
+      console.log("Touche appuyée :", letter);
     },
   },
 };
