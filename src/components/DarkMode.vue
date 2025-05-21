@@ -1,7 +1,7 @@
 <template>
     <button @click="toggleDarkMode"
         class="fixed top-4 right-4 p-2 rounded-full transition-colors duration-200 ease-in-out"
-        :class="isDarkMode ? 'bg-yellow-400 text-gray-900' : 'bg-gray-700 text-gray-100'">
+        :class="isDarkMode ? ' bg-amber-100 text-gray-900' : ' bg-blue-600 text-amber-100'">
         <svg v-if="isDarkMode" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
             stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

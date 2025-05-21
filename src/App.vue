@@ -12,11 +12,11 @@
 
       <div class="mt-6 text-center">
         <div v-if="gameStatus === 'win'" class="text-lg font-bold text-[#6AAA64] dark:text-[#538D4E] animate-bounce">
-          🎉 Bravo, tu as gagné ! 🎉
+          Bravo, tu as gagné !
         </div>
         <div v-else-if="gameStatus === 'lose'" class="text-lg font-bold text-red-600 dark:text-red-500">
           Perdu ! Le mot était : <span class="font-mono bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">{{ solution
-            }}</span>
+          }}</span>
         </div>
         <div v-else-if="gameStatus === 'loading'" class="text-lg text-gray-600 dark:text-gray-400">
           Chargement...
