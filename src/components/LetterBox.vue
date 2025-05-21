@@ -27,28 +27,27 @@ export default {
 .letter-box {
   width: 3.5rem;
   height: 3.5rem;
-  border: 2px solid;
+  background-color: #e8e0cd82;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
   font-weight: bold;
   text-transform: uppercase;
-  background-color: white;
   transition: all 0.3s ease;
 }
 
 .correct {
-  background-color: #6AAA64;
-  color: white;
-  border-color: #6AAA64;
+  background-color: #0C9E78;
+  color: #FEF4DC;
+  border-color: #0C9E78;
   transform: scale(1.02);
 }
 
 .present {
-  background-color: #CEB02C;
-  color: white;
-  border-color: #CEB02C;
+  background-color: #EF476F;
+  color: black;
+  border-color: #EF476F;
   transform: scale(1.02);
 }
 
@@ -60,18 +59,18 @@ export default {
 }
 
 .dark .letter-box {
-  background-color: #1a1a1a;
-  color: white;
+  background-color: #0F313C;
+  color: #FEF4DC;
 }
 
 .dark .correct {
-  background-color: #538D4E;
-  border-color: #538D4E;
+  background-color: #0C9E78;
+  border-color: #0C9E78;
 }
 
 .dark .present {
-  background-color: #B59F3B;
-  border-color: #B59F3B;
+  background-color: #FFD166;
+  border-color: #FFD166;
 }
 
 .dark .absent {

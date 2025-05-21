@@ -1,16 +1,17 @@
 <template>
-  <div class="keyboard">
-    <div class="row" v-for="(row, i) in rows" :key="i">
+  <div class="keyboard space-y-2">
+    <div class="row grid grid-cols-10 gap-1" v-for="(row, i) in rows" :key="i">
       <KeyboardKey v-for="key in row" :key="key" :letter="key" :status="getLetterStatus(key)" @press="handlePress" />
     </div>
-    <div class="row">
-      <KeyboardKey letter="↵" @press="$emit('enter')" />
+    <div class="row grid grid-cols-10 gap-1">
+      <KeyboardKey letter="↵" class="col-span-2" @press="$emit('enter')" />
       <KeyboardKey v-for="key in specialRow" :key="key" :letter="key" :status="getLetterStatus(key)"
         @press="handlePress" />
-      <KeyboardKey letter="BACKSPACE" @press="$emit('delete')" />
+      <KeyboardKey letter="BACKSPACE" class="col-span-2" @press="$emit('delete')" />
     </div>
   </div>
 </template>
+
 
 <script>
 import KeyboardKey from "./KeyboardKey.vue";
