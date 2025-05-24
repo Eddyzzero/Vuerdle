@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { getRandomWord } from '../../wordApi.js';
+import { getRandomWord } from '../wordApi.js';
 
 export default {
     data() {

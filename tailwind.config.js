@@ -1,23 +1,29 @@
-import darkModePlugin from "./tailwind-plugin.js";
-
-export default {
-  content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
-  // Tailwind 4.0 utilise toujours 'class' comme stratégie recommandée pour le dark mode
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx,vue}", "./src/**/*.css"],
   darkMode: "class",
   theme: {
     extend: {
-      // Couleurs personnalisées
       colors: {
-        primary: "#3490dc",
-        "primary-dark": "#1a4971",
-        secondary: "#ffed4a",
-        "secondary-dark": "#9c8a23",
-        background: "#ffffff",
-        "background-dark": "#121212",
-        text: "#333333",
-        "text-dark": "#f3f4f6",
+        wordle: {
+          correct: "#6AAA64",
+          "correct-dark": "#538D4E",
+          present: "#CEB02C",
+          "present-dark": "#B59F3B",
+          absent: "#939B9F",
+          "absent-dark": "#818384",
+        },
+        "light-blue": "var(--color-light-blue)",
+        "dark-blue": "var(--color-dark-blue)",
+        primary: "#118AB2",
+      },
+      fontFamily: {
+        sans: ["Poppins", "system-ui", "sans-serif"],
+        amatic: ["Amatic SC", "cursive"],
+        athiti: ["Athiti", "sans-serif"],
+        delius: ["Delius", "cursive"],
       },
     },
   },
-  plugins: [darkModePlugin],
+  plugins: [],
 };

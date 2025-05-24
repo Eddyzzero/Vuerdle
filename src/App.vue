@@ -1,45 +1,31 @@
 <template>
-  <div class="min-h-screen transition-colors duration-200 dark:bg-gray-900">
+  <div class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
     <header class="p-4 flex justify-between items-center">
       <h1 class="text-gray-900 dark:text-white font-bold text-4xl">Vuerdle</h1>
       <DarkMode />
     </header>
 
-    <main class="max-w-lg mx-auto px-4">
+    <main class="max-w-lg mx-auto px-4 space-y-6">
       <GameGrid :guesses="coloredGuesses" :current-guess="currentGuess" :maxAttempts="maxAttempts" />
 
       <Keyboard @letter="handleLetter" @enter="handleEnter" @delete="handleDelete" :getLetterStatus="getLetterStatus" />
 
-      <div class="mt-6 text-center">
-        <div v-if="gameStatus === 'win'" class="text-lg font-bold text-[#6AAA64] dark:text-[#538D4E] animate-bounce">
-          Bravo, tu as gagné !
-        </div>
-        <div v-else-if="gameStatus === 'lose'" class="text-lg font-bold text-red-600 dark:text-red-500">
-          Perdu ! Le mot était : <span class="font-mono bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">{{ solution
-          }}</span>
-        </div>
-        <div v-else-if="gameStatus === 'loading'" class="text-lg text-gray-600 dark:text-gray-400">
-          Chargement...
-        </div>
-        <div v-else-if="gameStatus === 'error'" class="text-lg text-red-600 dark:text-red-500">
-          Erreur lors du chargement du mot
-        </div>
+      <Score v-if="showStats" :games-played="gamesPlayed" :wins="wins" :current-streak="currentStreak" />
 
-        <button v-if="gameStatus === 'win' || gameStatus === 'lose'" @click="restartGame" class="mt-4 px-6 py-3 bg-[#6AAA64] dark:bg-[#538D4E] text-white rounded-lg 
-                 hover:bg-[#5C9958] dark:hover:bg-[#487F45] transform hover:scale-105 
-                 transition-all duration-200 shadow-md font-bold">
-          Nouvelle Partie
-        </button>
-      </div>
+      <Modal :is-open="showModal" :word="solution" :message="modalMessage" @close="closeModal"
+        @next-word="startNewGame" />
     </main>
   </div>
 </template>
 
 <script>
-import { useGameLogic } from "../useGameLogic";
+import { ref, watch } from 'vue';
+import { useGameLogic } from './useGameLogic.js';
 import GameGrid from "./components/GameGrid.vue";
 import Keyboard from "./components/Keyboard.vue";
 import DarkMode from "./components/DarkMode.vue";
+import Score from "./components/Score.vue";
+import Modal from "./components/Modal.vue";
 
 export default {
   name: "App",
@@ -47,8 +33,14 @@ export default {
     GameGrid,
     Keyboard,
     DarkMode,
+    Score,
+    Modal,
   },
   setup() {
+    const showModal = ref(false);
+    const showStats = ref(false);
+    const modalMessage = ref('');
+
     const {
       currentGuess,
       coloredGuesses,
@@ -58,6 +50,9 @@ export default {
       onKeyPress,
       getLetterStatus,
       restartGame,
+      gamesPlayed,
+      wins,
+      currentStreak,
     } = useGameLogic();
 
     function handleLetter(letter) {
@@ -72,6 +67,28 @@ export default {
       onKeyPress("DELETE");
     }
 
+    function closeModal() {
+      showModal.value = false;
+    }
+
+    function startNewGame() {
+      closeModal();
+      restartGame();
+    }
+
+    // Observer les changements de gameStatus
+    watch(gameStatus, (newStatus) => {
+      if (newStatus === 'win') {
+        modalMessage.value = 'Félicitations ! Vous avez trouvé le mot !';
+        showModal.value = true;
+        showStats.value = true;
+      } else if (newStatus === 'lose') {
+        modalMessage.value = 'Dommage, vous ferez mieux la prochaine fois !';
+        showModal.value = true;
+        showStats.value = true;
+      }
+    });
+
     return {
       currentGuess,
       coloredGuesses,
@@ -80,10 +97,17 @@ export default {
       maxAttempts,
       onKeyPress,
       getLetterStatus,
-      restartGame,
       handleLetter,
       handleEnter,
       handleDelete,
+      gamesPlayed,
+      wins,
+      currentStreak,
+      showModal,
+      showStats,
+      modalMessage,
+      closeModal,
+      startNewGame
     };
   },
 };

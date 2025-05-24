@@ -8,6 +8,20 @@ export function useGameLogic() {
   const maxAttempts = 6;
   const gameStatus = ref("loading");
 
+  // Statistiques du jeu
+  const gamesPlayed = ref(parseInt(localStorage.getItem("gamesPlayed") || "0"));
+  const wins = ref(parseInt(localStorage.getItem("wins") || "0"));
+  const currentStreak = ref(
+    parseInt(localStorage.getItem("currentStreak") || "0")
+  );
+
+  // Sauvegarder les stats
+  function saveStats() {
+    localStorage.setItem("gamesPlayed", gamesPlayed.value.toString());
+    localStorage.setItem("wins", wins.value.toString());
+    localStorage.setItem("currentStreak", currentStreak.value.toString());
+  }
+
   async function fetchSolution() {
     try {
       gameStatus.value = "loading";
@@ -42,8 +56,15 @@ export function useGameLogic() {
 
     if (currentGuess.value === solution.value) {
       gameStatus.value = "win";
+      wins.value++;
+      currentStreak.value++;
+      gamesPlayed.value++;
+      saveStats();
     } else if (guesses.value.length >= maxAttempts) {
       gameStatus.value = "lose";
+      currentStreak.value = 0;
+      gamesPlayed.value++;
+      saveStats();
     }
 
     currentGuess.value = "";
@@ -99,5 +120,8 @@ export function useGameLogic() {
     getLetterStatus,
     restartGame,
     maxAttempts,
+    gamesPlayed,
+    wins,
+    currentStreak,
   };
 }
