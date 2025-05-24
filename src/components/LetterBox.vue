@@ -1,8 +1,13 @@
 <template>
-  <div class="letter-box transition-all duration-200 rounded-lg" :class="[
-    status,
-    letter ? 'border-gray-400 dark:border-gray-500 shadow-sm' : 'border-gray-200 dark:border-gray-700'
-  ]">
+  <div
+    class="letter-box transition-all duration-200 rounded-lg"
+    :class="[
+      status,
+      letter
+        ? 'border-gray-400 dark:border-gray-500 shadow-sm'
+        : 'border-gray-200 dark:border-gray-700',
+    ]"
+  >
     {{ letter }}
   </div>
 </template>
@@ -13,13 +18,13 @@ export default {
   props: {
     letter: {
       type: String,
-      default: ''
+      default: "",
     },
     status: {
       type: [String, null],
-      default: null
-    }
-  }
+      default: null,
+    },
+  },
 };
 </script>
 
@@ -27,7 +32,7 @@ export default {
 .letter-box {
   width: 3.5rem;
   height: 3.5rem;
-  background-color: #e8e0cd82;
+  background-color: theme("colors.wordle.background.light");
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,44 +42,43 @@ export default {
   transition: all 0.3s ease;
 }
 
-.correct {
-  background-color: #0C9E78;
-  color: #FEF4DC;
-  border-color: #0C9E78;
-  transform: scale(1.02);
-}
-
-.present {
-  background-color: #EF476F;
-  color: black;
-  border-color: #EF476F;
-  transform: scale(1.02);
-}
-
-.absent {
-  background-color: #939B9F;
-  color: white;
-  border-color: #939B9F;
-  transform: scale(1.02);
-}
-
 .dark .letter-box {
-  background-color: #0F313C;
-  color: #FEF4DC;
+  background-color: theme("colors.wordle.background.dark");
+}
+
+.correct {
+  background-color: theme("colors.wordle.correct");
+  color: theme("colors.wordle.text.dark");
+  border-color: theme("colors.wordle.correct");
+  transform: scale(1.02);
 }
 
 .dark .correct {
-  background-color: #0C9E78;
-  border-color: #0C9E78;
+  background-color: theme("colors.wordle.correct-dark");
+  border-color: theme("colors.wordle.correct-dark");
+}
+
+.present {
+  background-color: theme("colors.wordle.present");
+  color: theme("colors.wordle.text.dark");
+  border-color: theme("colors.wordle.present");
+  transform: scale(1.02);
 }
 
 .dark .present {
-  background-color: #FFD166;
-  border-color: #FFD166;
+  background-color: theme("colors.wordle.present-dark");
+  border-color: theme("colors.wordle.present-dark");
+}
+
+.absent {
+  background-color: theme("colors.wordle.absent");
+  color: white;
+  border-color: theme("colors.wordle.absent");
+  transform: scale(1.02);
 }
 
 .dark .absent {
-  background-color: #818384;
-  border-color: #818384;
+  background-color: theme("colors.wordle.absent-dark");
+  border-color: theme("colors.wordle.absent-dark");
 }
 </style>

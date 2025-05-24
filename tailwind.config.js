@@ -12,10 +12,23 @@ module.exports = {
           "present-dark": "#B59F3B",
           absent: "#939B9F",
           "absent-dark": "#818384",
+          background: {
+            light: "#FEF4DC",
+            dark: "#0F313C",
+          },
+          text: {
+            light: "#1A1A1A",
+            dark: "#FEF4DC",
+          },
         },
-        "light-blue": "var(--color-light-blue)",
-        "dark-blue": "var(--color-dark-blue)",
-        primary: "#118AB2",
+        primary: {
+          light: "#118AB2",
+          dark: "#0D6B8C",
+        },
+        secondary: {
+          light: "#FFD166",
+          dark: "#E6BC5C",
+        },
       },
       fontFamily: {
         sans: ["Poppins", "system-ui", "sans-serif"],

@@ -4,66 +4,36 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Base styles */
-html {
-    font-family: 'Poppins', system-ui, sans-serif;
-}
+@layer components {
+    .score-card {
+        @apply flex flex-col items-center p-4 rounded-lg bg-gray-100 shadow-sm transition-transform duration-200 hover:-translate-y-1;
+    }
 
-/* Game styles */
-.score-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    background-color: #f3f4f6;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    transition: transform 200ms;
-}
+    .dark .score-card {
+        @apply bg-gray-800;
+    }
 
-.dark .score-card {
-    background-color: #1f2937;
-}
+    .score-label {
+        @apply text-sm font-medium text-gray-500;
+    }
 
-.score-card:hover {
-    transform: translateY(-0.25rem);
-}
+    .dark .score-label {
+        @apply text-gray-400;
+    }
 
-.score-label {
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: #6b7280;
-}
+    .score-value {
+        @apply text-2xl font-bold;
+    }
 
-.dark .score-label {
-    color: #9ca3af;
-}
+    .score-value-games {
+        @apply text-gray-900 dark:text-white;
+    }
 
-.score-value {
-    font-size: 1.5rem;
-    font-weight: 700;
-}
+    .score-value-wins {
+        @apply text-emerald-600 dark:text-emerald-500;
+    }
 
-.score-value-games {
-    color: #111827;
-}
-
-.dark .score-value-games {
-    color: #ffffff;
-}
-
-.score-value-wins {
-    color: #059669;
-}
-
-.dark .score-value-wins {
-    color: #10b981;
-}
-
-.score-value-streak {
-    color: #2563eb;
-}
-
-.dark .score-value-streak {
-    color: #3b82f6;
+    .score-value-streak {
+        @apply text-blue-600 dark:text-blue-500;
+    }
 }
