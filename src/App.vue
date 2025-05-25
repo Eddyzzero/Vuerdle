@@ -1,10 +1,10 @@
 <template>
-  <header class="p-4 flex justify-between items-center bg-amber-200 dark:bg-gray-800">
+  <header class="p-4 flex justify-between items-center bg-amber-200 dark:bg-[#073B4C]/90">
     <h1 class="text-gray-900 dark:text-white font-bold text-4xl">Vuerdle</h1>
     <DarkMode />
   </header>
   <div
-    class="min-h-screen flex justify-center items-center flex-col bg-amber-100 dark:bg-gray-900 transition-colors duration-200">
+    class="min-h-screen flex justify-center items-center flex-col bg-amber-100 dark:bg-[#073B4C] transition-colors duration-200">
 
     <main class="max-w-lg mx-auto px-4 space-y-6">
       <GameGrid :guesses="coloredGuesses" :current-guess="currentGuess" :maxAttempts="maxAttempts" />

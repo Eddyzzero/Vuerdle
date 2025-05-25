@@ -1,13 +1,10 @@
 <template>
-  <div
-    class="letter-box transition-all duration-200 rounded-lg"
-    :class="[
-      status,
-      letter
-        ? 'border-gray-400 dark:border-gray-500 shadow-sm'
-        : 'border-gray-200 dark:border-gray-700',
-    ]"
-  >
+  <div class="letter-box transition-all duration-200 rounded-lg" :class="[
+    status,
+    letter
+      ? 'border-gray-400 dark:border-gray-500 shadow-sm'
+      : 'border-gray-200 dark:border-gray-700',
+  ]">
     {{ letter }}
   </div>
 </template>

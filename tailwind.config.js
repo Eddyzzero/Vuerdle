@@ -7,9 +7,9 @@ module.exports = {
       colors: {
         wordle: {
           correct: "#6AAA64",
-          "correct-dark": "#538D4E",
+          "correct-dark": "#0C9E78",
           present: "#CEB02C",
-          "present-dark": "#B59F3B",
+          "present-dark": "#FFD166",
           absent: "#939B9F",
           "absent-dark": "#818384",
           background: {
