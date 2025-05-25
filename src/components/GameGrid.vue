@@ -1,6 +1,6 @@
 <template>
   <div class="grid">
-    <div v-for="(row, rowIndex) in allRows" :key="rowIndex" class="grid-row">
+    <div v-for="(row, rowIndex) in allRows" :key="rowIndex" class="grid-row text-red-400">
       <LetterBox v-for="(cell, colIndex) in row" :key="colIndex" :letter="cell.letter" :status="cell.status" />
     </div>
   </div>

@@ -1,40 +1,20 @@
 <template>
+  <header class="p-4 flex justify-between items-center bg-amber-200 dark:bg-gray-800">
+    <h1 class="text-gray-900 dark:text-white font-bold text-4xl">Vuerdle</h1>
+    <DarkMode />
+  </header>
   <div
-    class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200"
-  >
-    <header class="p-4 flex justify-between items-center">
-      <h1 class="text-gray-900 dark:text-white font-bold text-4xl">Vuerdle</h1>
-      <DarkMode />
-    </header>
+    class="min-h-screen flex justify-center items-center flex-col bg-amber-100 dark:bg-gray-900 transition-colors duration-200">
 
     <main class="max-w-lg mx-auto px-4 space-y-6">
-      <GameGrid
-        :guesses="coloredGuesses"
-        :current-guess="currentGuess"
-        :maxAttempts="maxAttempts"
-      />
+      <GameGrid :guesses="coloredGuesses" :current-guess="currentGuess" :maxAttempts="maxAttempts" />
 
-      <Keyboard
-        @letter="handleLetter"
-        @enter="handleEnter"
-        @delete="handleDelete"
-        :getLetterStatus="getLetterStatus"
-      />
+      <Keyboard @letter="handleLetter" @enter="handleEnter" @delete="handleDelete" :getLetterStatus="getLetterStatus" />
 
-      <Score
-        v-if="showStats"
-        :games-played="gamesPlayed"
-        :wins="wins"
-        :current-streak="currentStreak"
-      />
+      <Score v-if="showStats" :games-played="gamesPlayed" :wins="wins" :current-streak="currentStreak" />
 
-      <Modal
-        :is-open="showModal"
-        :word="solution"
-        :message="modalMessage"
-        @close="closeModal"
-        @next-word="startNewGame"
-      />
+      <Modal :is-open="showModal" :word="solution" :message="modalMessage" @close="closeModal"
+        @next-word="startNewGame" />
     </main>
   </div>
 </template>

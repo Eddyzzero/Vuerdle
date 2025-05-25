@@ -41,19 +41,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.keyboard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  margin-top: 20px;
-}
-
-.row {
-  display: flex;
-  justify-content: center;
-  gap: 4px;
-}
-</style>

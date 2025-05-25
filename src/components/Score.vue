@@ -1,14 +1,14 @@
 <template>
-    <div class="grid grid-cols-3 gap-6 p-6">
-        <div class="score-card">
+    <div class="grid grid-cols-3 gap-6 p-6 transition-colors duration-200">
+        <div class="score-card bg-amber-200">
             <h3 class="score-label">Parties jouées</h3>
             <p class="score-value score-value-games">{{ gamesPlayed }}</p>
         </div>
-        <div class="score-card">
+        <div class="score-card bg-amber-200">
             <h3 class="score-label">Victoires</h3>
             <p class="score-value score-value-wins">{{ wins }}</p>
         </div>
-        <div class="score-card">
+        <div class="score-card bg-amber-200">
             <h3 class="score-label">Série actuelle</h3>
             <p class="score-value score-value-streak">{{ currentStreak }}</p>
         </div>
