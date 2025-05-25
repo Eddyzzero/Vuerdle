@@ -1,7 +1,10 @@
 <template>
   <header class="p-4 flex justify-between items-center bg-amber-200 dark:bg-[#073B4C]/90">
     <h1 class="text-gray-900 dark:text-white font-bold text-4xl">Vuerdle</h1>
-    <DarkMode />
+    <div class="flex gap-2">
+      <Rules />
+      <DarkMode />
+    </div>
   </header>
   <div
     class="min-h-screen flex justify-center items-center flex-col bg-amber-100 dark:bg-[#073B4C] transition-colors duration-200">
@@ -25,6 +28,7 @@ import { useGameLogic } from "./useGameLogic.js";
 import GameGrid from "./components/GameGrid.vue";
 import Keyboard from "./components/Keyboard.vue";
 import DarkMode from "./components/DarkMode.vue";
+import Rules from "./components/Rules.vue";
 import Score from "./components/Score.vue";
 import Modal from "./components/Modal.vue";
 
@@ -36,6 +40,7 @@ export default {
     DarkMode,
     Score,
     Modal,
+    Rules,
   },
   setup() {
     const showModal = ref(false);
