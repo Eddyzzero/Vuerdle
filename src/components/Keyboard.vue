@@ -1,5 +1,5 @@
 <template>
-  <div class="keyboard space-y-2">
+  <div class="motion-preset-expand motion-duration-1000 keyboard space-y-2">
     <div class="row grid grid-cols-10 gap-1" v-for="(row, i) in rows" :key="i">
       <KeyboardKey v-for="key in row" :key="key" :letter="key" :status="getLetterStatus(key)" @press="handlePress" />
     </div>

@@ -8,7 +8,7 @@ module.exports = {
         wordle: {
           correct: "#6AAA64",
           "correct-dark": "#0C9E78",
-          present: "#CEB02C",
+          present: "#FFD166",
           "present-dark": "#FFD166",
           absent: "#939B9F",
           "absent-dark": "#818384",
@@ -32,11 +32,8 @@ module.exports = {
       },
       fontFamily: {
         sans: ["Poppins", "system-ui", "sans-serif"],
-        amatic: ["Amatic SC", "cursive"],
-        athiti: ["Athiti", "sans-serif"],
-        delius: ["Delius", "cursive"],
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-motion")],
 };

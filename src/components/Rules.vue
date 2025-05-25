@@ -1,7 +1,7 @@
 <template>
     <div>
         <button @click="showRules = true"
-            class="p-2 rounded-lg transition-colors duration-200 ease-in-out border-b-2 border-amber-600 dark:border-red-500 bg-amber-500 dark:bg-red-400 dark:text-black text-amber-100">
+            class="motion-preset-pop  p-2 rounded-lg transition-colors duration-200 ease-in-out border-b-2 border-amber-600 dark:border-red-500 bg-amber-500 dark:bg-red-400 dark:text-black text-amber-100">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -12,7 +12,8 @@
         <!-- Modal des règles -->
         <div v-if="showRules" class="fixed inset-0 flex items-center justify-center z-50">
             <div class="absolute inset-0 bg-black/50 dark:bg-black/70" @click="showRules = false"></div>
-            <div class="bg-amber-100 dark:bg-[#073B4C] rounded-lg p-6 max-w-lg w-full mx-4 z-10 relative">
+            <div
+                class="bg-amber-100 dark:bg-[#073B4C] rounded-lg p-6 max-w-lg w-full mx-4 z-10 relative motion-preset-pop ">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Règles du jeu</h2>
                     <button @click="showRules = false" class="text-gray-500 hover:text-gray-700 dark:text-gray-300">

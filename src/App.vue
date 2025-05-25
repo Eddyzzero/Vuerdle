@@ -1,6 +1,6 @@
 <template>
   <header class="p-4 flex justify-between items-center bg-amber-200 dark:bg-[#073B4C]/90">
-    <h1 class="text-gray-900 dark:text-white font-bold text-4xl">Vuerdle</h1>
+    <h1 class="text-gray-900 dark:text-white font-bold text-4xl motion-preset-confetti  ">Vuerdle</h1>
     <div class="flex gap-2">
       <Rules />
       <DarkMode />
