@@ -1,6 +1,7 @@
 <template>
   <div class="grid">
-    <div v-for="(row, rowIndex) in allRows" :key="rowIndex" class="grid-row dark:text-white ">
+    <div v-for="(row, rowIndex) in allRows" :key="rowIndex"
+      class="grid-row dark:text-white motion-scale-in-[0.5] motion-rotate-in-[-10deg] motion-blur-in-[10px] motion-delay-[0.75s]/rotate motion-delay-[0.75s]/blur">
       <LetterBox v-for="(cell, colIndex) in row" :key="colIndex" :letter="cell.letter" :status="cell.status" />
     </div>
   </div>
