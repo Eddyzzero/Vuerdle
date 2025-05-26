@@ -29,7 +29,7 @@ export default {
 .letter-box {
   width: 3.5rem;
   height: 3.5rem;
-  background-color: theme("colors.wordle.background.light");
+  background-color: #e9dab5;
   display: flex;
   align-items: center;
   justify-content: center;
