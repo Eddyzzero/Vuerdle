@@ -1,9 +1,8 @@
 <template>
   <div class="letter-box transition-all duration-200 rounded-lg" :class="[
     status,
-    letter
-      ? 'border-gray-400 dark:border-gray-500 shadow-sm'
-      : 'border-gray-200 dark:border-gray-700',
+    letter ? 'border-gray-400 dark:border-gray-500 shadow-sm' : 'border-gray-200 dark:border-gray-700',
+    { 'animate-reveal': status === 'correct', 'animate-pop': status === 'present' }
   ]">
     {{ letter }}
   </div>
@@ -37,6 +36,8 @@ export default {
   font-weight: bold;
   text-transform: uppercase;
   transition: all 0.3s ease;
+  perspective: 1000px;
+  transform-style: preserve-3d;
 }
 
 .dark .letter-box {
@@ -47,7 +48,6 @@ export default {
   background-color: theme("colors.wordle.correct");
   color: theme("colors.wordle.text.dark");
   border-color: theme("colors.wordle.correct");
-  transform: scale(1.02);
 }
 
 .dark .correct {
@@ -59,7 +59,6 @@ export default {
   background-color: theme("colors.wordle.present");
   color: theme("colors.wordle.text.dark");
   border-color: theme("colors.wordle.present");
-  transform: scale(1.02);
 }
 
 .dark .present {
@@ -71,11 +70,14 @@ export default {
   background-color: theme("colors.wordle.absent");
   color: white;
   border-color: theme("colors.wordle.absent");
-  transform: scale(1.02);
 }
 
 .dark .absent {
   background-color: theme("colors.wordle.absent-dark");
   border-color: theme("colors.wordle.absent-dark");
+}
+
+.animate-reveal {
+  animation-delay: calc(var(--index, 0) * 0.2s);
 }
 </style>

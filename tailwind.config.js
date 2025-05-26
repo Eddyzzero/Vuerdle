@@ -4,6 +4,22 @@ module.exports = {
   darkMode: "class",
   theme: {
     extend: {
+      keyframes: {
+        reveal: {
+          "0%": { transform: "rotateX(0deg)" },
+          "50%": { transform: "rotateX(90deg)" },
+          "100%": { transform: "rotateX(0deg)" },
+        },
+        pop: {
+          "0%": { transform: "scale(1)" },
+          "50%": { transform: "scale(1.1)" },
+          "100%": { transform: "scale(1)" },
+        },
+      },
+      animation: {
+        reveal: "reveal 0.6s ease-in-out",
+        pop: "pop 0.3s ease-in-out",
+      },
       colors: {
         wordle: {
           correct: "#6AAA64",
