@@ -16,12 +16,16 @@
                 class="bg-amber-100 dark:bg-[#073B4C] rounded-lg p-6 max-w-lg w-full mx-4 z-10 relative motion-preset-pop ">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Règles du jeu</h2>
-                    <button @click="showRules = false" class="text-gray-500 hover:text-gray-700 dark:text-gray-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12" />
-                        </svg>
+                    <button @click="showRules = false"
+                        class="text-gray-500 hover:text-gray-700 dark:text-gray-300 hover:motion-preset-seesaw">
+                        <div
+                            class=" bg-amber-500 text-white dark:bg-red-400 hover:bg-amber-400 p-1 rounded-lg dark:text-black border-b-2 dark:border-amber-600 dark:hover:bg-red-300 dark:hover:text-white transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </div>
                     </button>
                 </div>
 
