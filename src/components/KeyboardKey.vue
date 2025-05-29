@@ -1,13 +1,16 @@
 <template>
-  <button @click="$emit('press', letter)"
+  <button
+    @click="$emit('press', letter)"
     class="key min-w-[2.5rem] h-14 m-0.5 rounded-md font-bold text-xl uppercase transition-all duration-200 cursor-pointer shadow-sm hover:scale-105 border-b-2 border-gray-600"
     :class="[
       statusClass,
+      used ? 'opacity-40' : '',
       'dark:text-wordle-text-dark',
       status
         ? ''
         : 'bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500',
-    ]">
+    ]"
+  >
     <span v-if="letter === 'ENTER'" class="text-xs">Entrée</span>
     <span v-else-if="letter === 'BACKSPACE'" class="text-lg">⌫</span>
     <span v-else>{{ letter }}</span>
@@ -18,14 +21,9 @@
 export default {
   name: "KeyboardKey",
   props: {
-    letter: {
-      type: String,
-      required: true,
-    },
-    status: {
-      type: String,
-      default: null,
-    },
+    letter: { type: String, required: true },
+    status: { type: String, default: null },
+    used: { type: Boolean, default: false },
   },
   computed: {
     statusClass() {

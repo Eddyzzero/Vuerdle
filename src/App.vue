@@ -1,32 +1,59 @@
 <template>
-  <header class="p-4 flex justify-between items-center bg-amber-200 dark:bg-[#073B4C]/90">
-    <h1 class="text-gray-900 dark:text-white font-bold text-4xl motion-preset-confetti  ">Vuerdle</h1>
+  <header
+    class="p-4 flex justify-between items-center bg-amber-200 dark:bg-[#073B4C]/90"
+  >
+    <h1
+      class="text-4xl font-bold text-gray-900 dark:text-white motion-preset-confetti"
+    >
+      Vuerdle
+    </h1>
     <div class="flex gap-2">
       <Rules />
       <DarkMode />
     </div>
   </header>
   <div
-    class="min-h-screen flex justify-center items-center flex-col bg-amber-100 dark:bg-[#073B4C] transition-colors duration-200">
+    class="min-h-screen flex justify-center items-center flex-col bg-amber-100 dark:bg-[#073B4C] transition-colors duration-200"
+  >
+    <main class="max-w-lg px-4 mx-auto space-y-6">
+      <GameGrid
+        :guesses="coloredGuesses"
+        :current-guess="currentGuess"
+        :maxAttempts="maxAttempts"
+      />
 
-    <main class="max-w-lg mx-auto px-4 space-y-6">
-      <GameGrid :guesses="coloredGuesses" :current-guess="currentGuess" :maxAttempts="maxAttempts" />
+      <Keyboard
+        @letter="handleLetter"
+        @enter="handleEnter"
+        @delete="handleDelete"
+        :getLetterStatus="getLetterStatus"
+        :guesses="guesses"
+      />
 
-      <Keyboard @letter="handleLetter" @enter="handleEnter" @delete="handleDelete" :getLetterStatus="getLetterStatus" />
+      <Score
+        v-if="showStats"
+        :games-played="gamesPlayed"
+        :wins="wins"
+        :current-streak="currentStreak"
+      />
 
-      <Score v-if="showStats" :games-played="gamesPlayed" :wins="wins" :current-streak="currentStreak" />
-
-      <Modal :is-open="showModal" :word="solution" :message="modalMessage" @close="closeModal"
-        @next-word="startNewGame" />
+      <Modal
+        :is-open="showModal"
+        :word="solution"
+        :message="modalMessage"
+        @close="closeModal"
+        @next-word="startNewGame"
+      />
     </main>
   </div>
 </template>
 
 <script>
-import { ref, watch } from "vue";
+import { ref, watch, onMounted, onUnmounted } from "vue";
 import { useGameLogic } from "./useGameLogic.js";
 import GameGrid from "./components/GameGrid.vue";
 import Keyboard from "./components/Keyboard.vue";
+import KeyboardKey from "./components/KeyboardKey.vue";
 import DarkMode from "./components/DarkMode.vue";
 import Rules from "./components/Rules.vue";
 import Score from "./components/Score.vue";
@@ -59,6 +86,7 @@ export default {
       gamesPlayed,
       wins,
       currentStreak,
+      guesses,
     } = useGameLogic();
 
     function handleLetter(letter) {
@@ -78,9 +106,34 @@ export default {
     }
 
     function startNewGame() {
-      closeModal();
+      showModal.value = false;
+      showStats.value = false;
+      modalMessage.value = "";
       restartGame();
     }
+
+    // Gérer le clavier
+    function handleKeyDown(event) {
+      if (showModal.value || showStats.value) return;
+
+      const key = event.key;
+
+      if (key === "Enter") {
+        handleEnter();
+      } else if (key === "Backspace") {
+        handleDelete();
+      } else if (/^[a-zA-Z]$/.test(key)) {
+        handleLetter(key.toUpperCase());
+      }
+    }
+
+    onMounted(() => {
+      window.addEventListener("keydown", handleKeyDown);
+    });
+
+    onUnmounted(() => {
+      window.removeEventListener("keydown", handleKeyDown);
+    });
 
     // Observer les changements de gameStatus
     watch(gameStatus, (newStatus) => {
@@ -114,6 +167,7 @@ export default {
       modalMessage,
       closeModal,
       startNewGame,
+      guesses,
     };
   },
 };
