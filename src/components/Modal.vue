@@ -11,13 +11,13 @@
           <h3 class="text-xl font-bold text-wordle-text-light dark:text-wordle-text-dark">
             {{ title }}
           </h3>
-          <div
-            class=" bg-amber-500 text-white dark:bg-red-400 hover:bg-amber-400 p-1 rounded-lg dark:text-black border-b-2 dark:border-amber-600 dark:hover:bg-red-300 dark:hover:text-white transition-colors hover:motion-preset-seesaw ">
+          <button @click="closeModal"
+            class="bg-amber-500 text-white dark:bg-red-400 hover:bg-amber-400 p-1 rounded-lg dark:text-black border-b-2 dark:border-amber-600 dark:hover:bg-red-300 dark:hover:text-white transition-colors hover:motion-preset-seesaw cursor-pointer">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
               stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
-          </div>
+          </button>
         </div>
 
         <div class="text-wordle-text-light dark:text-wordle-text-dark mb-6">
