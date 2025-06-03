@@ -1,4 +1,4 @@
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import { getRandomWord } from "./wordApi";
 
 export function useGameLogic() {
@@ -8,14 +8,39 @@ export function useGameLogic() {
   const maxAttempts = 6;
   const gameStatus = ref("loading");
 
-  // Statistiques du jeu
+  // stats du jeu
   const gamesPlayed = ref(parseInt(localStorage.getItem("gamesPlayed") || "0"));
   const wins = ref(parseInt(localStorage.getItem("wins") || "0"));
   const currentStreak = ref(
     parseInt(localStorage.getItem("currentStreak") || "0")
   );
 
-  // Sauvegarder les stats
+  // load le jeu depuis le localstorage
+  function loadGameState() {
+    const savedSolution = localStorage.getItem("currentSolution");
+    const savedGuesses = localStorage.getItem("currentGuesses");
+    const savedCurrentGuess = localStorage.getItem("currentGuess");
+    const savedGameStatus = localStorage.getItem("gameStatus");
+
+    if (savedSolution && savedGuesses && savedGameStatus) {
+      solution.value = savedSolution;
+      guesses.value = JSON.parse(savedGuesses);
+      currentGuess.value = savedCurrentGuess || "";
+      gameStatus.value = savedGameStatus;
+    } else {
+      fetchSolution();
+    }
+  }
+
+  // save etat du jeu
+  function saveGameState() {
+    localStorage.setItem("currentSolution", solution.value);
+    localStorage.setItem("currentGuesses", JSON.stringify(guesses.value));
+    localStorage.setItem("currentGuess", currentGuess.value);
+    localStorage.setItem("gameStatus", gameStatus.value);
+  }
+
+  // save stats
   function saveStats() {
     localStorage.setItem("gamesPlayed", gamesPlayed.value.toString());
     localStorage.setItem("wins", wins.value.toString());
@@ -30,12 +55,18 @@ export function useGameLogic() {
       guesses.value = [];
       currentGuess.value = "";
       gameStatus.value = "playing";
+      saveGameState();
     } catch (error) {
       gameStatus.value = "error";
     }
   }
 
-  onMounted(fetchSolution);
+  onMounted(loadGameState);
+
+  // watch changement pour save l'état du jeu
+  watch([guesses, currentGuess, gameStatus], () => {
+    saveGameState();
+  });
 
   function onKeyPress(key) {
     if (gameStatus.value !== "playing") return;
@@ -107,6 +138,10 @@ export function useGameLogic() {
   });
 
   function restartGame() {
+    localStorage.removeItem("currentSolution");
+    localStorage.removeItem("currentGuesses");
+    localStorage.removeItem("currentGuess");
+    localStorage.removeItem("gameStatus");
     fetchSolution();
   }
 
