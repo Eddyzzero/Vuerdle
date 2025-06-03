@@ -1,4 +1,4 @@
-// Fonction pour nettoyer un mot : retirer les accents et mettre en majuscule
+
 function cleanWord(word) {
   return word
     .normalize("NFD")
@@ -6,7 +6,7 @@ function cleanWord(word) {
     .toUpperCase();
 }
 
-// Ce fichier contient la fonction pour récupérer un mot aléatoire depuis l'API Trouve-Mot
+// API Trouve-Mot
 export async function getRandomWord() {
   try {
     const response = await fetch("https://trouve-mot.fr/api/size/5");
@@ -14,7 +14,7 @@ export async function getRandomWord() {
 
     // L'API retourne un tableau avec un seul objet contenant le mot
     if (data && data[0] && data[0].name) {
-      return data[0].name.toUpperCase();
+      return cleanWord(data[0].name);
     }
     throw new Error("Format de réponse invalide");
   } catch (error) {
