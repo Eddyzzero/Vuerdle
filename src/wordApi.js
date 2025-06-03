@@ -7,7 +7,7 @@ function cleanWord(word) {
 export async function getRandomWord() {
   try {
     const response = await fetch(
-      "https://random-word-api.herokuapp.com/word?lang=en&number=1&length=5"
+      "https://random-word-api.herokuapp.com/word?lang=fr&number=1&length=5"
     );
     const data = await response.json();
 
@@ -22,30 +22,3 @@ export async function getRandomWord() {
   }
 }
 
-// Vérification de l'existence du mot avec l'API Free Dictionary
-export async function checkWordExists(word) {
-  try {
-    const response = await fetch(
-      `https://api.dictionaryapi.dev/api/v2/entries/en/${word.toLowerCase()}`
-    );
-    const data = await response.json();
-
-    if (response.ok && data.length > 0) {
-      return {
-        exists: true,
-        message: "Valid word",
-      };
-    } else {
-      return {
-        exists: false,
-        message: "This word doesn't exist",
-      };
-    }
-  } catch (error) {
-    console.error("Error checking word:", error);
-    return {
-      exists: false,
-      message: "Unable to verify the word at the moment",
-    };
-  }
-}
