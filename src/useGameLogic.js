@@ -27,6 +27,9 @@ export function useGameLogic() {
   const gameStatus = ref("loading");
   const currentLanguage = ref(localStorage.getItem("gameLanguage") || "en");
   const errorMessage = ref("");
+  const hintsRemaining = ref(2);
+  const revealedHints = ref([]);
+  const hintsUsed = ref(0);
 
   // stats du jeu
   const gamesPlayed = ref(parseInt(localStorage.getItem("gamesPlayed") || "0"));
@@ -41,12 +44,27 @@ export function useGameLogic() {
     const savedGuesses = localStorage.getItem("currentGuesses");
     const savedCurrentGuess = localStorage.getItem("currentGuess");
     const savedGameStatus = localStorage.getItem("gameStatus");
+    const savedHintsRemaining = localStorage.getItem("hintsRemaining");
+    const savedRevealedHints = localStorage.getItem("revealedHints");
+    const savedHintsUsed = localStorage.getItem("hintsUsed");
 
     if (savedSolution && savedGuesses && savedGameStatus) {
       solution.value = savedSolution;
       guesses.value = JSON.parse(savedGuesses);
       currentGuess.value = savedCurrentGuess || "";
       gameStatus.value = savedGameStatus;
+
+      // Restaurer les indices seulement si on a une partie en cours
+      if (savedGameStatus === "playing") {
+        hintsUsed.value = parseInt(savedHintsUsed) || 0;
+        hintsRemaining.value = Math.max(0, 2 - hintsUsed.value);
+        revealedHints.value = JSON.parse(savedRevealedHints || "[]");
+      } else {
+        // Réinitialiser les indices si la partie est terminée
+        hintsRemaining.value = 2;
+        hintsUsed.value = 0;
+        revealedHints.value = [];
+      }
     } else {
       fetchSolution();
     }
@@ -58,6 +76,9 @@ export function useGameLogic() {
     localStorage.setItem("currentGuesses", JSON.stringify(guesses.value));
     localStorage.setItem("currentGuess", currentGuess.value);
     localStorage.setItem("gameStatus", gameStatus.value);
+    localStorage.setItem("hintsRemaining", hintsRemaining.value.toString());
+    localStorage.setItem("revealedHints", JSON.stringify(revealedHints.value));
+    localStorage.setItem("hintsUsed", hintsUsed.value.toString());
   }
 
   // save stats
@@ -90,8 +111,27 @@ export function useGameLogic() {
   onMounted(loadGameState);
 
   // watch changement pour save l'état du jeu
-  watch([guesses, currentGuess, gameStatus], () => {
-    saveGameState();
+  watch(
+    [
+      guesses,
+      currentGuess,
+      gameStatus,
+      hintsRemaining,
+      revealedHints,
+      hintsUsed,
+    ],
+    () => {
+      saveGameState();
+    }
+  );
+
+  // Réinitialiser les indices quand la partie est terminée
+  watch(gameStatus, (newStatus) => {
+    if (newStatus === "win" || newStatus === "lose") {
+      hintsRemaining.value = 2;
+      hintsUsed.value = 0;
+      revealedHints.value = [];
+    }
   });
 
   function onKeyPress(key) {
@@ -179,11 +219,55 @@ export function useGameLogic() {
     });
   });
 
+  function useHint() {
+    // Vérification stricte du nombre d'indices utilisés
+    if (hintsUsed.value >= 2 || gameStatus.value !== "playing") {
+      return;
+    }
+
+    // Créer un tableau des lettres déjà révélées
+    const revealedLetters = new Set(
+      revealedHints.value.map((hint) => hint.letter)
+    );
+
+    // Trouver les positions disponibles (non révélées)
+    const availablePositions = Array.from(
+      { length: solution.value.length },
+      (_, i) => i
+    ).filter(
+      (pos) => !revealedHints.value.some((hint) => hint.position === pos)
+    );
+
+    // Filtrer les positions pour ne garder que celles dont la lettre n'a pas encore été révélée
+    const validPositions = availablePositions.filter(
+      (pos) => !revealedLetters.has(solution.value[pos])
+    );
+
+    if (validPositions.length > 0) {
+      // Choisir une position aléatoire parmi les positions valides
+      const randomIndex = Math.floor(Math.random() * validPositions.length);
+      const position = validPositions[randomIndex];
+      const letter = solution.value[position];
+
+      // Ajouter le nouvel indice
+      revealedHints.value.push({ letter, position });
+      hintsUsed.value++;
+      hintsRemaining.value = Math.max(0, 2 - hintsUsed.value);
+      saveGameState();
+    }
+  }
+
   function restartGame() {
     localStorage.removeItem("currentSolution");
     localStorage.removeItem("currentGuesses");
     localStorage.removeItem("currentGuess");
     localStorage.removeItem("gameStatus");
+    localStorage.removeItem("hintsRemaining");
+    localStorage.removeItem("revealedHints");
+    localStorage.removeItem("hintsUsed");
+    hintsRemaining.value = 2;
+    hintsUsed.value = 0;
+    revealedHints.value = [];
     fetchSolution();
   }
 
@@ -208,5 +292,8 @@ export function useGameLogic() {
     currentLanguage,
     errorMessage,
     messages: computed(() => messages[currentLanguage.value]),
+    hintsRemaining,
+    useHint,
+    revealedHints,
   };
 }

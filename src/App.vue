@@ -24,8 +24,25 @@
       <GameGrid :guesses="coloredGuesses" :current-guess="currentGuess" :maxAttempts="maxAttempts"
         :wordLength="wordLength" />
 
+<<<<<<< HEAD
       <Keyboard @letter="handleLetter" @enter="handleEnter" @delete="handleDelete" :getLetterStatus="getLetterStatus"
         :guesses="guesses" />
+=======
+      <Hints
+        :hints-remaining="hintsRemaining"
+        :game-status="gameStatus"
+        :revealed-hints="revealedHints"
+        @use-hint="useHint"
+      />
+
+      <Keyboard
+        @letter="handleLetter"
+        @enter="handleEnter"
+        @delete="handleDelete"
+        :getLetterStatus="getLetterStatus"
+        :guesses="guesses"
+      />
+>>>>>>> indice
 
       <Score v-if="showStats" :games-played="gamesPlayed" :wins="wins" :current-streak="currentStreak" />
 
@@ -44,7 +61,11 @@ import DarkMode from "./components/DarkMode.vue";
 import Rules from "./components/Rules.vue";
 import Score from "./components/Score.vue";
 import Modal from "./components/Modal.vue";
+<<<<<<< HEAD
 import LanguageSelector from "./components/LanguageSelector.vue";
+=======
+import Hints from "./components/Hints.vue";
+>>>>>>> indice
 
 export default {
   name: "App",
@@ -55,7 +76,11 @@ export default {
     Score,
     Modal,
     Rules,
+<<<<<<< HEAD
     LanguageSelector
+=======
+    Hints,
+>>>>>>> indice
   },
   setup() {
     const showModal = ref(false);
@@ -77,7 +102,15 @@ export default {
       wins,
       currentStreak,
       guesses,
+<<<<<<< HEAD
       changeLanguage
+=======
+      isExpertMode,
+      toggleExpertMode,
+      hintsRemaining,
+      useHint,
+      revealedHints,
+>>>>>>> indice
     } = useGameLogic();
 
     function handleLetter(letter) {
@@ -170,7 +203,14 @@ export default {
       startNewGame,
       guesses,
       isExpertMode,
+<<<<<<< HEAD
       toggleExpertMode
+=======
+      toggleExpertMode,
+      hintsRemaining,
+      useHint,
+      revealedHints,
+>>>>>>> indice
     };
   },
 };
