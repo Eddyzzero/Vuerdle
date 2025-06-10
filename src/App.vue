@@ -36,6 +36,13 @@
         :wordLength="wordLength"
       />
 
+      <Hints
+        :hints-remaining="hintsRemaining"
+        :game-status="gameStatus"
+        :revealed-hints="revealedHints"
+        @use-hint="useHint"
+      />
+
       <Keyboard
         @letter="handleLetter"
         @enter="handleEnter"
@@ -72,6 +79,7 @@ import DarkMode from "./components/DarkMode.vue";
 import Rules from "./components/Rules.vue";
 import Score from "./components/Score.vue";
 import Modal from "./components/Modal.vue";
+import Hints from "./components/Hints.vue";
 
 export default {
   name: "App",
@@ -82,6 +90,7 @@ export default {
     Score,
     Modal,
     Rules,
+    Hints,
   },
   setup() {
     const showModal = ref(false);
@@ -104,6 +113,9 @@ export default {
       guesses,
       isExpertMode,
       toggleExpertMode,
+      hintsRemaining,
+      useHint,
+      revealedHints,
     } = useGameLogic();
 
     function handleLetter(letter) {
@@ -188,6 +200,9 @@ export default {
       guesses,
       isExpertMode,
       toggleExpertMode,
+      hintsRemaining,
+      useHint,
+      revealedHints,
     };
   },
 };
