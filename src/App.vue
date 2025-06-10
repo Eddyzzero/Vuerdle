@@ -30,11 +30,11 @@ import { ref, watch, onMounted, onUnmounted } from "vue";
 import { useGameLogic } from "./useGameLogic.js";
 import GameGrid from "./components/GameGrid.vue";
 import Keyboard from "./components/Keyboard.vue";
-import KeyboardKey from "./components/KeyboardKey.vue";
 import DarkMode from "./components/DarkMode.vue";
 import Rules from "./components/Rules.vue";
 import Score from "./components/Score.vue";
 import Modal from "./components/Modal.vue";
+import LanguageSelector from "./components/LanguageSelector.vue";
 
 export default {
   name: "App",
@@ -45,6 +45,7 @@ export default {
     Score,
     Modal,
     Rules,
+    LanguageSelector
   },
   setup() {
     const showModal = ref(false);
@@ -64,6 +65,7 @@ export default {
       wins,
       currentStreak,
       guesses,
+      changeLanguage
     } = useGameLogic();
 
     function handleLetter(letter) {
@@ -149,6 +151,7 @@ export default {
       closeModal,
       startNewGame,
       guesses,
+      handleLanguageChange,
     };
   },
 };
