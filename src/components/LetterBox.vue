@@ -1,6 +1,6 @@
 <template>
   <div
-    class="letter-box transition-all duration-200 rounded-lg"
+    class="transition-all duration-200 rounded-lg letter-box"
     :class="[
       status,
       letter
