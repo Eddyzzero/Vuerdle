@@ -33,13 +33,22 @@ export default {
     name: "LanguageSelector",
     emits: ['language-change'],
     data() {
+        const supportedLanguages = ['fr', 'en'];
+        const savedLanguage = localStorage.getItem('gameLanguage') || 'fr';
+        const currentLanguage = supportedLanguages.includes(savedLanguage) ? savedLanguage : 'fr';
+        
         return {
             isOpen: false,
-            currentLanguage: localStorage.getItem('gameLanguage') || 'fr'
+            supportedLanguages,
+            currentLanguage
         }
     },
     methods: {
         selectLanguage(lang) {
+            if (!this.supportedLanguages.includes(lang)) {
+                console.warn(`Language ${lang} not supported, using French as default`);
+                lang = 'fr';
+            }
             this.currentLanguage = lang;
             localStorage.setItem('gameLanguage', lang);
             this.isOpen = false;

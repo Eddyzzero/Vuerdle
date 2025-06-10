@@ -21,6 +21,12 @@ const API_CONFIG = {
 // API pour obtenir un mot aléatoire
 export async function getRandomWord(lang = "en") {
   try {
+    // Vérifier si la langue est supportée
+    if (!API_CONFIG[lang]) {
+      console.warn(`langue ${lang} non supportée, retour au français`);
+      lang = "fr";
+    }
+
     const response = await fetch(API_CONFIG[lang].randomWord);
     const data = await response.json();
 
