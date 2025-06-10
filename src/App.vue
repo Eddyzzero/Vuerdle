@@ -1,49 +1,26 @@
 <template>
-  <header
-    class="p-4 flex justify-between items-center bg-amber-200 dark:bg-[#073B4C]/90"
-  >
-    <h1
-      class="text-4xl font-bold text-gray-900 dark:text-white motion-preset-confetti"
-    >
+  <header class="p-4 flex justify-between items-center bg-amber-200 dark:bg-[#073B4C]/90">
+    <h1 class="text-4xl font-bold text-gray-900 dark:text-white motion-preset-confetti">
       Vuerdle
     </h1>
     <div class="flex gap-2">
       <Rules />
+      <LanguageSelector @language-change="handleLanguageChange" />
       <DarkMode />
     </div>
   </header>
   <div
-    class="min-h-screen flex justify-center items-center flex-col bg-amber-100 dark:bg-[#073B4C] transition-colors duration-200"
-  >
+    class="min-h-screen flex justify-center items-center flex-col bg-amber-100 dark:bg-[#073B4C] transition-colors duration-200">
     <main class="max-w-lg px-4 mx-auto space-y-6">
-      <GameGrid
-        :guesses="coloredGuesses"
-        :current-guess="currentGuess"
-        :maxAttempts="maxAttempts"
-      />
+      <GameGrid :guesses="coloredGuesses" :current-guess="currentGuess" :maxAttempts="maxAttempts" />
 
-      <Keyboard
-        @letter="handleLetter"
-        @enter="handleEnter"
-        @delete="handleDelete"
-        :getLetterStatus="getLetterStatus"
-        :guesses="guesses"
-      />
+      <Keyboard @letter="handleLetter" @enter="handleEnter" @delete="handleDelete" :getLetterStatus="getLetterStatus"
+        :guesses="guesses" />
 
-      <Score
-        v-if="showStats"
-        :games-played="gamesPlayed"
-        :wins="wins"
-        :current-streak="currentStreak"
-      />
+      <Score v-if="showStats" :games-played="gamesPlayed" :wins="wins" :current-streak="currentStreak" />
 
-      <Modal
-        :is-open="showModal"
-        :word="solution"
-        :message="modalMessage"
-        @close="closeModal"
-        @next-word="startNewGame"
-      />
+      <Modal :is-open="showModal" :word="solution" :message="modalMessage" @close="closeModal"
+        @next-word="startNewGame" />
     </main>
   </div>
 </template>
@@ -99,6 +76,10 @@ export default {
 
     function handleDelete() {
       onKeyPress("DELETE");
+    }
+
+    function handleLanguageChange(lang) {
+      changeLanguage(lang);
     }
 
     function closeModal() {
