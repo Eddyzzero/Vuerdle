@@ -1,35 +1,47 @@
 <template>
   <div class="grid">
-    <div v-for="(row, rowIndex) in allRows" :key="rowIndex"
-      class="grid-row dark:text-white motion-preset-shrink motion-duration-400">
-      <LetterBox v-for="(cell, colIndex) in row" :key="colIndex" :letter="cell.letter" :status="cell.status"
-        :style="{ '--index': colIndex }" />
+    <div
+      v-for="(row, rowIndex) in allRows"
+      :key="rowIndex"
+      class="grid-row dark:text-white motion-scale-in-[0.5] motion-rotate-in-[-10deg] motion-blur-in-[10px] motion-delay-[0.75s]/rotate motion-delay-[0.75s]/blur"
+    >
+      <LetterBox
+        v-for="(cell, colIndex) in row"
+        :key="colIndex"
+        :letter="cell.letter"
+        :status="cell.status"
+        :style="{ '--index': colIndex }"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import LetterBox from './LetterBox.vue';
+import LetterBox from "./LetterBox.vue";
 
 export default {
   name: "GameGrid",
   components: {
-    LetterBox
+    LetterBox,
   },
   props: {
     guesses: {
       type: Array,
       required: true,
-      default: () => []
+      default: () => [],
     },
     currentGuess: {
       type: String,
-      default: ''
+      default: "",
     },
     maxAttempts: {
       type: Number,
-      default: 6
-    }
+      default: 6,
+    },
+    wordLength: {
+      type: Number,
+      default: 5,
+    },
   },
   computed: {
     allRows() {
@@ -37,14 +49,14 @@ export default {
 
       // Ajouter la ligne courante avec le mot en cours de saisie
       if (rows.length < this.maxAttempts) {
-        const currentGuessRow = this.currentGuess.split('').map(letter => ({
+        const currentGuessRow = this.currentGuess.split("").map((letter) => ({
           letter,
-          status: ''
+          status: "",
         }));
 
         // Compléter avec des cases vides si nécessaire
-        while (currentGuessRow.length < 5) {
-          currentGuessRow.push({ letter: '', status: '' });
+        while (currentGuessRow.length < this.wordLength) {
+          currentGuessRow.push({ letter: "", status: "" });
         }
 
         rows.push(currentGuessRow);
@@ -52,12 +64,16 @@ export default {
 
       // Remplir les lignes restantes avec des cases vides
       while (rows.length < this.maxAttempts) {
-        rows.push(Array(5).fill().map(() => ({ letter: '', status: '' })));
+        rows.push(
+          Array(this.wordLength)
+            .fill()
+            .map(() => ({ letter: "", status: "" }))
+        );
       }
 
       return rows;
-    }
-  }
+    },
+  },
 };
 </script>
 

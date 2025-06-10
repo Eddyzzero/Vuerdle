@@ -1,9 +1,17 @@
 <template>
-  <div class="letter-box transition-all duration-200 rounded-lg" :class="[
-    status,
-    letter ? 'border-gray-400 dark:border-gray-500 shadow-sm' : 'border-gray-200 dark:border-gray-700',
-    { 'animate-reveal': status === 'correct', 'animate-pop': status === 'present' }
-  ]">
+  <div
+    class="letter-box transition-all duration-200 rounded-lg"
+    :class="[
+      status,
+      letter
+        ? 'border-gray-400 dark:border-gray-500 shadow-sm'
+        : 'border-gray-200 dark:border-gray-700',
+      {
+        'animate-reveal': status === 'correct',
+        'animate-pop': status === 'present',
+      },
+    ]"
+  >
     {{ letter }}
   </div>
 </template>
@@ -26,13 +34,13 @@ export default {
 
 <style scoped>
 .letter-box {
-  width: 3.5rem;
-  height: 3.5rem;
+  width: min(3.5rem, calc((100vw - 2rem) / 7));
+  height: min(3.5rem, calc((100vw - 2rem) / 7));
   background-color: #e9dab5;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: min(1.5rem, calc((100vw - 2rem) / 14));
   font-weight: bold;
   text-transform: uppercase;
   transition: all 0.3s ease;

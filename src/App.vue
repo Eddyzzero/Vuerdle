@@ -8,6 +8,19 @@
       Vuerdle
     </h1>
     <div class="flex gap-2">
+      <button
+        @click="toggleExpertMode"
+        class="p-2 transition-colors duration-200 ease-in-out border-b-2 rounded-lg motion-preset-pop"
+        :class="
+          isExpertMode
+            ? 'bg-red-400 text-gray-900 border-red-600'
+            : 'bg-amber-500 text-amber-100 border-amber-600'
+        "
+      >
+        <span class="text-sm font-bold">{{
+          isExpertMode ? "Mode Expert" : "Mode Normal"
+        }}</span>
+      </button>
       <Rules />
       <DarkMode />
     </div>
@@ -20,6 +33,7 @@
         :guesses="coloredGuesses"
         :current-guess="currentGuess"
         :maxAttempts="maxAttempts"
+        :wordLength="wordLength"
       />
 
       <Keyboard
@@ -80,6 +94,7 @@ export default {
       gameStatus,
       solution,
       maxAttempts,
+      wordLength,
       onKeyPress,
       getLetterStatus,
       restartGame,
@@ -87,6 +102,8 @@ export default {
       wins,
       currentStreak,
       guesses,
+      isExpertMode,
+      toggleExpertMode,
     } = useGameLogic();
 
     function handleLetter(letter) {
@@ -154,6 +171,7 @@ export default {
       gameStatus,
       solution,
       maxAttempts,
+      wordLength,
       onKeyPress,
       getLetterStatus,
       handleLetter,
@@ -168,6 +186,8 @@ export default {
       closeModal,
       startNewGame,
       guesses,
+      isExpertMode,
+      toggleExpertMode,
     };
   },
 };

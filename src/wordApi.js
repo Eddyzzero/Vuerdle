@@ -1,13 +1,16 @@
 // Fonction pour nettoyer un mot : retirer les accents et mettre en majuscule
 function cleanWord(word) {
-  return word.toUpperCase();
+  return word
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toUpperCase();
 }
 
 // API Random Word
-export async function getRandomWord() {
+export async function getRandomWord(length = 5) {
   try {
     const response = await fetch(
-      "https://random-word-api.herokuapp.com/word?lang=en&number=1&length=5"
+      `https://random-word-api.herokuapp.com/word?lang=fr&number=1&length=${length}`
     );
     const data = await response.json();
 
@@ -19,33 +22,5 @@ export async function getRandomWord() {
   } catch (error) {
     console.error("Erreur lors de la récupération du mot:", error);
     throw error;
-  }
-}
-
-// Vérification de l'existence du mot avec l'API Free Dictionary
-export async function checkWordExists(word) {
-  try {
-    const response = await fetch(
-      `https://api.dictionaryapi.dev/api/v2/entries/en/${word.toLowerCase()}`
-    );
-    const data = await response.json();
-
-    if (response.ok && data.length > 0) {
-      return {
-        exists: true,
-        message: "Valid word",
-      };
-    } else {
-      return {
-        exists: false,
-        message: "This word doesn't exist",
-      };
-    }
-  } catch (error) {
-    console.error("Error checking word:", error);
-    return {
-      exists: false,
-      message: "Unable to verify the word at the moment",
-    };
   }
 }
