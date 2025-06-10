@@ -1,5 +1,21 @@
 import { ref, computed, onMounted, watch } from "vue";
-import { getRandomWord } from "./wordApi";
+import { getRandomWord, checkWordExists } from "./wordApi";
+
+// Messages selon la langue
+const messages = {
+  en: {
+    win: "Congratulations! You found the word!",
+    lose: "Game Over! Try again!",
+    invalidWord: "This word doesn't exist",
+    error: "An error occurred",
+  },
+  fr: {
+    win: "Félicitations ! Vous avez trouvé le mot !",
+    lose: "Dommage, vous ferez mieux la prochaine fois !",
+    invalidWord: "Ce mot n'existe pas",
+    error: "Une erreur est survenue",
+  },
+};
 
 export function useGameLogic() {
   const solution = ref("");
@@ -9,6 +25,8 @@ export function useGameLogic() {
   const maxAttempts = computed(() => (isExpertMode.value ? 5 : 6));
   const wordLength = computed(() => (isExpertMode.value ? 7 : 5));
   const gameStatus = ref("loading");
+  const currentLanguage = ref(localStorage.getItem("gameLanguage") || "en");
+  const errorMessage = ref("");
 
   // stats du jeu
   const gamesPlayed = ref(parseInt(localStorage.getItem("gamesPlayed") || "0"));
@@ -91,8 +109,35 @@ export function useGameLogic() {
     }
   }
 
-  function submitGuess() {
-    if (currentGuess.value.length !== wordLength.value) return;
+  // Fonction pour changer la langue
+  async function changeLanguage(newLang) {
+    currentLanguage.value = newLang;
+    localStorage.setItem("gameLanguage", newLang);
+    await restartGame(); // Redémarrer avec un nouveau mot dans la nouvelle langue
+  }
+
+  async function submitGuess() {
+    if (currentGuess.value.length !== 5) return;
+
+    // Vérifier si le mot existe dans la langue actuelle
+    const wordCheck = await checkWordExists(
+      currentGuess.value,
+      currentLanguage.value
+    );
+
+    if (!wordCheck.exists) {
+      // Animation de secouement et message d'erreur
+      const currentRow = document.querySelector(
+        ".grid-row:nth-child(" + (guesses.value.length + 1) + ")"
+      );
+      currentRow.classList.add("shake");
+      errorMessage.value = messages[currentLanguage.value].invalidWord;
+      setTimeout(() => {
+        currentRow.classList.remove("shake");
+        errorMessage.value = "";
+      }, 1000);
+      return;
+    }
 
     guesses.value.push(currentGuess.value);
 
@@ -156,6 +201,7 @@ export function useGameLogic() {
     fetchSolution();
   }
 
+  // Ajouter changeLanguage et errorMessage aux valeurs retournées
   return {
     currentGuess,
     guesses,
@@ -172,5 +218,9 @@ export function useGameLogic() {
     currentStreak,
     isExpertMode,
     toggleExpertMode,
+    changeLanguage,
+    currentLanguage,
+    errorMessage,
+    messages: computed(() => messages[currentLanguage.value]),
   };
 }

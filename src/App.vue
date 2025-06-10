@@ -1,63 +1,36 @@
 <template>
-  <header
-    class="p-4 flex justify-between items-center bg-amber-200 dark:bg-[#073B4C]/90"
-  >
-    <h1
-      class="text-4xl font-bold text-gray-900 dark:text-white motion-preset-confetti"
-    >
+  <header class="p-4 flex justify-between items-center bg-amber-200 dark:bg-[#073B4C]/90">
+    <h1 class="text-4xl font-bold text-gray-900 dark:text-white motion-preset-confetti">
       Vuerdle
     </h1>
     <div class="flex gap-2">
-      <button
-        @click="toggleExpertMode"
-        class="p-2 transition-colors duration-200 ease-in-out border-b-2 rounded-lg motion-preset-pop"
-        :class="
-          isExpertMode
+      <button @click="toggleExpertMode"
+        class="p-2 transition-colors duration-200 ease-in-out border-b-2 rounded-lg motion-preset-pop" :class="isExpertMode
             ? 'bg-red-400 text-gray-900 border-red-600'
             : 'bg-amber-500 text-amber-100 border-amber-600'
-        "
-      >
+          ">
         <span class="text-sm font-bold">{{
           isExpertMode ? "Mode Expert" : "Mode Normal"
-        }}</span>
+          }}</span>
       </button>
       <Rules />
+      <LanguageSelector @language-change="handleLanguageChange" />
       <DarkMode />
     </div>
   </header>
   <div
-    class="min-h-screen flex justify-center items-center flex-col bg-amber-100 dark:bg-[#073B4C] transition-colors duration-200"
-  >
+    class="min-h-screen flex justify-center items-center flex-col bg-amber-100 dark:bg-[#073B4C] transition-colors duration-200">
     <main class="max-w-lg px-4 mx-auto space-y-6">
-      <GameGrid
-        :guesses="coloredGuesses"
-        :current-guess="currentGuess"
-        :maxAttempts="maxAttempts"
-        :wordLength="wordLength"
-      />
+      <GameGrid :guesses="coloredGuesses" :current-guess="currentGuess" :maxAttempts="maxAttempts"
+        :wordLength="wordLength" />
 
-      <Keyboard
-        @letter="handleLetter"
-        @enter="handleEnter"
-        @delete="handleDelete"
-        :getLetterStatus="getLetterStatus"
-        :guesses="guesses"
-      />
+      <Keyboard @letter="handleLetter" @enter="handleEnter" @delete="handleDelete" :getLetterStatus="getLetterStatus"
+        :guesses="guesses" />
 
-      <Score
-        v-if="showStats"
-        :games-played="gamesPlayed"
-        :wins="wins"
-        :current-streak="currentStreak"
-      />
+      <Score v-if="showStats" :games-played="gamesPlayed" :wins="wins" :current-streak="currentStreak" />
 
-      <Modal
-        :is-open="showModal"
-        :word="solution"
-        :message="modalMessage"
-        @close="closeModal"
-        @next-word="startNewGame"
-      />
+      <Modal :is-open="showModal" :word="solution" :message="modalMessage" @close="closeModal"
+        @next-word="startNewGame" />
     </main>
   </div>
 </template>
@@ -67,11 +40,11 @@ import { ref, watch, onMounted, onUnmounted } from "vue";
 import { useGameLogic } from "./useGameLogic.js";
 import GameGrid from "./components/GameGrid.vue";
 import Keyboard from "./components/Keyboard.vue";
-import KeyboardKey from "./components/KeyboardKey.vue";
 import DarkMode from "./components/DarkMode.vue";
 import Rules from "./components/Rules.vue";
 import Score from "./components/Score.vue";
 import Modal from "./components/Modal.vue";
+import LanguageSelector from "./components/LanguageSelector.vue";
 
 export default {
   name: "App",
@@ -82,6 +55,7 @@ export default {
     Score,
     Modal,
     Rules,
+    LanguageSelector
   },
   setup() {
     const showModal = ref(false);
@@ -102,8 +76,6 @@ export default {
       wins,
       currentStreak,
       guesses,
-      isExpertMode,
-      toggleExpertMode,
     } = useGameLogic();
 
     function handleLetter(letter) {
@@ -116,6 +88,10 @@ export default {
 
     function handleDelete() {
       onKeyPress("DELETE");
+    }
+
+    function handleLanguageChange(lang) {
+      changeLanguage(lang);
     }
 
     function closeModal() {
@@ -186,8 +162,6 @@ export default {
       closeModal,
       startNewGame,
       guesses,
-      isExpertMode,
-      toggleExpertMode,
     };
   },
 };
