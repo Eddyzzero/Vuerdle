@@ -5,7 +5,9 @@ export function useGameLogic() {
   const solution = ref("");
   const currentGuess = ref("");
   const guesses = ref([]);
-  const maxAttempts = 6;
+  const isExpertMode = ref(localStorage.getItem("expertMode") === "true");
+  const maxAttempts = computed(() => (isExpertMode.value ? 5 : 6));
+  const wordLength = computed(() => (isExpertMode.value ? 7 : 5));
   const gameStatus = ref("loading");
 
   // stats du jeu
@@ -50,7 +52,7 @@ export function useGameLogic() {
   async function fetchSolution() {
     try {
       gameStatus.value = "loading";
-      const word = await getRandomWord();
+      const word = await getRandomWord(isExpertMode.value ? 7 : 5);
       solution.value = word;
       guesses.value = [];
       currentGuess.value = "";
@@ -59,6 +61,12 @@ export function useGameLogic() {
     } catch (error) {
       gameStatus.value = "error";
     }
+  }
+
+  function toggleExpertMode() {
+    isExpertMode.value = !isExpertMode.value;
+    localStorage.setItem("expertMode", isExpertMode.value.toString());
+    restartGame();
   }
 
   onMounted(loadGameState);
@@ -75,13 +83,16 @@ export function useGameLogic() {
       submitGuess();
     } else if (key === "DELETE") {
       currentGuess.value = currentGuess.value.slice(0, -1);
-    } else if (/^[A-ZÀ-ÿ]$/.test(key) && currentGuess.value.length < 5) {
+    } else if (
+      /^[A-ZÀ-ÿ]$/.test(key) &&
+      currentGuess.value.length < wordLength.value
+    ) {
       currentGuess.value += key.toUpperCase();
     }
   }
 
   function submitGuess() {
-    if (currentGuess.value.length !== 5) return;
+    if (currentGuess.value.length !== wordLength.value) return;
 
     guesses.value.push(currentGuess.value);
 
@@ -91,7 +102,7 @@ export function useGameLogic() {
       currentStreak.value++;
       gamesPlayed.value++;
       saveStats();
-    } else if (guesses.value.length >= maxAttempts) {
+    } else if (guesses.value.length >= maxAttempts.value) {
       gameStatus.value = "lose";
       currentStreak.value = 0;
       gamesPlayed.value++;
@@ -155,8 +166,11 @@ export function useGameLogic() {
     getLetterStatus,
     restartGame,
     maxAttempts,
+    wordLength,
     gamesPlayed,
     wins,
     currentStreak,
+    isExpertMode,
+    toggleExpertMode,
   };
 }

@@ -1,13 +1,16 @@
 // Fonction pour nettoyer un mot : retirer les accents et mettre en majuscule
 function cleanWord(word) {
-  return word.toUpperCase();
+  return word
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toUpperCase();
 }
 
 // API Random Word
-export async function getRandomWord() {
+export async function getRandomWord(length = 5) {
   try {
     const response = await fetch(
-      "https://random-word-api.herokuapp.com/word?lang=fr&number=1&length=5"
+      `https://random-word-api.herokuapp.com/word?lang=fr&number=1&length=${length}`
     );
     const data = await response.json();
 
@@ -21,4 +24,3 @@ export async function getRandomWord() {
     throw error;
   }
 }
-
