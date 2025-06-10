@@ -6,8 +6,8 @@
     <div class="flex gap-2">
       <button @click="toggleExpertMode"
         class="p-2 transition-colors duration-200 ease-in-out border-b-2 rounded-lg motion-preset-pop" :class="isExpertMode
-            ? 'bg-red-400 text-gray-900 border-red-600'
-            : 'bg-amber-500 text-amber-100 border-amber-600'
+          ? 'bg-red-400 text-gray-900 border-red-600'
+          : 'bg-amber-500 text-amber-100 border-amber-600'
           ">
         <span class="text-sm font-bold">{{
           isExpertMode ? "Mode Expert" : "Mode Normal"
@@ -61,6 +61,7 @@ export default {
     const showModal = ref(false);
     const showStats = ref(false);
     const modalMessage = ref("");
+    const isExpertMode = ref(false);
 
     const {
       currentGuess,
@@ -76,6 +77,7 @@ export default {
       wins,
       currentStreak,
       guesses,
+      changeLanguage
     } = useGameLogic();
 
     function handleLetter(letter) {
@@ -103,6 +105,10 @@ export default {
       showStats.value = false;
       modalMessage.value = "";
       restartGame();
+    }
+
+    function toggleExpertMode() {
+      isExpertMode.value = !isExpertMode.value;
     }
 
     // Gérer le clavier
@@ -153,6 +159,7 @@ export default {
       handleLetter,
       handleEnter,
       handleDelete,
+      handleLanguageChange,
       gamesPlayed,
       wins,
       currentStreak,
@@ -162,6 +169,8 @@ export default {
       closeModal,
       startNewGame,
       guesses,
+      isExpertMode,
+      toggleExpertMode
     };
   },
 };

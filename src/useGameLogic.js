@@ -125,20 +125,6 @@ export function useGameLogic() {
       currentLanguage.value
     );
 
-    if (!wordCheck.exists) {
-      // Animation de secouement et message d'erreur
-      const currentRow = document.querySelector(
-        ".grid-row:nth-child(" + (guesses.value.length + 1) + ")"
-      );
-      currentRow.classList.add("shake");
-      errorMessage.value = messages[currentLanguage.value].invalidWord;
-      setTimeout(() => {
-        currentRow.classList.remove("shake");
-        errorMessage.value = "";
-      }, 1000);
-      return;
-    }
-
     guesses.value.push(currentGuess.value);
 
     if (currentGuess.value === solution.value) {
