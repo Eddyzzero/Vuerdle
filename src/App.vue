@@ -1,17 +1,25 @@
 <template>
-  <header class="p-4 flex justify-between items-center bg-amber-200 dark:bg-[#073B4C]/90">
-    <h1 class="text-4xl font-bold text-gray-900 dark:text-white motion-preset-confetti">
+  <header
+    class="p-4 flex justify-between items-center bg-amber-200 dark:bg-[#073B4C]/90"
+  >
+    <h1
+      class="text-4xl font-bold text-gray-900 dark:text-white motion-preset-confetti"
+    >
       Vuerdle
     </h1>
     <div class="flex gap-2">
-      <button @click="toggleExpertMode"
-        class="p-2 transition-colors duration-200 ease-in-out border-b-2 rounded-lg motion-preset-pop" :class="isExpertMode
-          ? 'bg-red-400 text-gray-900 border-red-600'
-          : 'bg-amber-500 text-amber-100 border-amber-600'
-          ">
+      <button
+        @click="toggleExpertMode"
+        class="p-2 transition-colors duration-200 ease-in-out border-b-2 rounded-lg motion-preset-pop"
+        :class="
+          isExpertMode
+            ? 'bg-red-400 text-gray-900 border-red-600'
+            : 'bg-amber-500 text-amber-100 border-amber-600'
+        "
+      >
         <span class="text-sm font-bold">{{
           isExpertMode ? "Mode Expert" : "Mode Normal"
-          }}</span>
+        }}</span>
       </button>
       <Rules />
       <LanguageSelector @language-change="handleLanguageChange" />
@@ -19,15 +27,16 @@
     </div>
   </header>
   <div
-    class="min-h-screen flex justify-center items-center flex-col bg-amber-100 dark:bg-[#073B4C] transition-colors duration-200">
+    class="min-h-screen flex justify-center items-center flex-col bg-amber-100 dark:bg-[#073B4C] transition-colors duration-200"
+  >
     <main class="max-w-lg px-4 mx-auto space-y-6">
-      <GameGrid :guesses="coloredGuesses" :current-guess="currentGuess" :maxAttempts="maxAttempts"
-        :wordLength="wordLength" />
+      <GameGrid
+        :guesses="coloredGuesses"
+        :current-guess="currentGuess"
+        :maxAttempts="maxAttempts"
+        :wordLength="wordLength"
+      />
 
-<<<<<<< HEAD
-      <Keyboard @letter="handleLetter" @enter="handleEnter" @delete="handleDelete" :getLetterStatus="getLetterStatus"
-        :guesses="guesses" />
-=======
       <Hints
         :hints-remaining="hintsRemaining"
         :game-status="gameStatus"
@@ -42,12 +51,21 @@
         :getLetterStatus="getLetterStatus"
         :guesses="guesses"
       />
->>>>>>> indice
 
-      <Score v-if="showStats" :games-played="gamesPlayed" :wins="wins" :current-streak="currentStreak" />
+      <Score
+        v-if="showStats"
+        :games-played="gamesPlayed"
+        :wins="wins"
+        :current-streak="currentStreak"
+      />
 
-      <Modal :is-open="showModal" :word="solution" :message="modalMessage" @close="closeModal"
-        @next-word="startNewGame" />
+      <Modal
+        :is-open="showModal"
+        :word="solution"
+        :message="modalMessage"
+        @close="closeModal"
+        @next-word="startNewGame"
+      />
     </main>
   </div>
 </template>
@@ -61,11 +79,8 @@ import DarkMode from "./components/DarkMode.vue";
 import Rules from "./components/Rules.vue";
 import Score from "./components/Score.vue";
 import Modal from "./components/Modal.vue";
-<<<<<<< HEAD
 import LanguageSelector from "./components/LanguageSelector.vue";
-=======
 import Hints from "./components/Hints.vue";
->>>>>>> indice
 
 export default {
   name: "App",
@@ -76,17 +91,13 @@ export default {
     Score,
     Modal,
     Rules,
-<<<<<<< HEAD
-    LanguageSelector
-=======
+    LanguageSelector,
     Hints,
->>>>>>> indice
   },
   setup() {
     const showModal = ref(false);
     const showStats = ref(false);
     const modalMessage = ref("");
-    const isExpertMode = ref(false);
 
     const {
       currentGuess,
@@ -102,15 +113,15 @@ export default {
       wins,
       currentStreak,
       guesses,
-<<<<<<< HEAD
-      changeLanguage
-=======
       isExpertMode,
       toggleExpertMode,
       hintsRemaining,
       useHint,
       revealedHints,
->>>>>>> indice
+      changeLanguage,
+      currentLanguage,
+      errorMessage,
+      messages,
     } = useGameLogic();
 
     function handleLetter(letter) {
@@ -140,10 +151,6 @@ export default {
       restartGame();
     }
 
-    function toggleExpertMode() {
-      isExpertMode.value = !isExpertMode.value;
-    }
-
     // Gérer le clavier
     function handleKeyDown(event) {
       if (showModal.value || showStats.value) return;
@@ -170,11 +177,11 @@ export default {
     // Observer les changements de gameStatus
     watch(gameStatus, (newStatus) => {
       if (newStatus === "win") {
-        modalMessage.value = "Félicitations ! Vous avez trouvé le mot !";
+        modalMessage.value = messages.value.win;
         showModal.value = true;
         showStats.value = true;
       } else if (newStatus === "lose") {
-        modalMessage.value = "Dommage, vous ferez mieux la prochaine fois !";
+        modalMessage.value = messages.value.lose;
         showModal.value = true;
         showStats.value = true;
       }
@@ -203,14 +210,12 @@ export default {
       startNewGame,
       guesses,
       isExpertMode,
-<<<<<<< HEAD
-      toggleExpertMode
-=======
       toggleExpertMode,
       hintsRemaining,
       useHint,
       revealedHints,
->>>>>>> indice
+      currentLanguage,
+      errorMessage,
     };
   },
 };
