@@ -1,5 +1,5 @@
 import { ref, computed, onMounted, watch } from "vue";
-import { getRandomWord, checkWordExists } from "./wordApi";
+import { getRandomWord } from "./wordApi";
 
 // Messages selon la langue
 const messages = {
@@ -91,7 +91,7 @@ export function useGameLogic() {
   async function fetchSolution() {
     try {
       gameStatus.value = "loading";
-      const word = await getRandomWord(isExpertMode.value ? 7 : 5);
+      const word = await getRandomWord(wordLength.value, currentLanguage.value);
       solution.value = word;
       guesses.value = [];
       currentGuess.value = "";
@@ -153,17 +153,11 @@ export function useGameLogic() {
   async function changeLanguage(newLang) {
     currentLanguage.value = newLang;
     localStorage.setItem("gameLanguage", newLang);
-    await restartGame(); // Redémarrer avec un nouveau mot dans la nouvelle langue
+    await restartGame();
   }
 
   async function submitGuess() {
-    if (currentGuess.value.length !== 5) return;
-
-    // Vérifier si le mot existe dans la langue actuelle
-    const wordCheck = await checkWordExists(
-      currentGuess.value,
-      currentLanguage.value
-    );
+    if (currentGuess.value.length !== wordLength.value) return;
 
     guesses.value.push(currentGuess.value);
 
@@ -220,7 +214,6 @@ export function useGameLogic() {
   });
 
   function useHint() {
-    // Vérification stricte du nombre d'indices utilisés
     if (hintsUsed.value >= 2 || gameStatus.value !== "playing") {
       return;
     }
@@ -244,12 +237,12 @@ export function useGameLogic() {
     );
 
     if (validPositions.length > 0) {
-      // Choisir une position aléatoire parmi les positions valides
+      // random pos là où valide
       const randomIndex = Math.floor(Math.random() * validPositions.length);
       const position = validPositions[randomIndex];
       const letter = solution.value[position];
 
-      // Ajouter le nouvel indice
+      // nouvel indice
       revealedHints.value.push({ letter, position });
       hintsUsed.value++;
       hintsRemaining.value = Math.max(0, 2 - hintsUsed.value);
@@ -271,7 +264,6 @@ export function useGameLogic() {
     fetchSolution();
   }
 
-  // Ajouter changeLanguage et errorMessage aux valeurs retournées
   return {
     currentGuess,
     guesses,
