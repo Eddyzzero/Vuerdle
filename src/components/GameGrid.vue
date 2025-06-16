@@ -1,10 +1,12 @@
 <template>
   <div class="grid">
+    <!-- boucle ligne grid -->
     <div
       v-for="(row, rowIndex) in allRows"
       :key="rowIndex"
       class="grid-row dark:text-white motion-scale-in-[0.5] motion-rotate-in-[-10deg] motion-blur-in-[10px] motion-delay-[0.75s]/rotate motion-delay-[0.75s]/blur"
     >
+      <!-- boucle case grid -->
       <LetterBox
         v-for="(cell, colIndex) in row"
         :key="colIndex"
@@ -25,25 +27,30 @@ export default {
     LetterBox,
   },
   props: {
+    // historique tentatives avec statuts
     guesses: {
       type: Array,
       required: true,
       default: () => [],
     },
+    // mot en cours de saisie
     currentGuess: {
       type: String,
       default: "",
     },
+    // nbr max de tentatives autorisées
     maxAttempts: {
       type: Number,
       default: 6,
     },
+    // longueur mot à deviner
     wordLength: {
       type: Number,
       default: 5,
     },
   },
   computed: {
+    /* calcule toutes les lignes de la grille : les tentatives précédentes, la tentative en cours, les lignes vides restantes */
     allRows() {
       const rows = [...this.guesses];
 

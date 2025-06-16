@@ -1,7 +1,10 @@
 import { ref, computed, onMounted, watch } from "vue";
 import { getRandomWord } from "./wordApi";
 
-// Messages selon la langue
+/**
+ * Messages du jeu selon la langue
+ * Contient les textes pour les différents états du jeu (victoire, défaite, etc.)
+ */
 const messages = {
   en: {
     win: "Congratulations! You found the word!",
@@ -17,16 +20,20 @@ const messages = {
   },
 };
 
+/* gère toute la logique métier du jeu Vuerdle */
 export function useGameLogic() {
-  const solution = ref("");
-  const currentGuess = ref("");
-  const guesses = ref([]);
+  // état du jeu
+  const solution = ref(""); // le mot à deviner
+  const currentGuess = ref(""); // la tentative actuelle
+  const guesses = ref([]); // historique des tentatives
   const isExpertMode = ref(localStorage.getItem("expertMode") === "true");
-  const maxAttempts = computed(() => (isExpertMode.value ? 5 : 6));
-  const wordLength = computed(() => (isExpertMode.value ? 7 : 5));
-  const gameStatus = ref("loading");
+  const maxAttempts = computed(() => (isExpertMode.value ? 5 : 6)); // nbr d'essais selon le mode
+  const wordLength = computed(() => (isExpertMode.value ? 7 : 5)); // longueur du mot selon le mode
+  const gameStatus = ref("loading"); // état actuel du jeu
   const currentLanguage = ref(localStorage.getItem("gameLanguage") || "en");
   const errorMessage = ref("");
+
+  // système d'indices
   const hintsRemaining = ref(2);
   const revealedHints = ref([]);
   const hintsUsed = ref(0);
@@ -88,6 +95,7 @@ export function useGameLogic() {
     localStorage.setItem("currentStreak", currentStreak.value.toString());
   }
 
+  /* récupère un nouveau mot aléatoire depuis l'API */
   async function fetchSolution() {
     try {
       gameStatus.value = "loading";
@@ -102,12 +110,14 @@ export function useGameLogic() {
     }
   }
 
+  /* toggle mode expert */
   function toggleExpertMode() {
     isExpertMode.value = !isExpertMode.value;
     localStorage.setItem("expertMode", isExpertMode.value.toString());
     restartGame();
   }
 
+  // chargement initial du jeu
   onMounted(loadGameState);
 
   // watch changement pour save l'état du jeu
@@ -134,6 +144,7 @@ export function useGameLogic() {
     }
   });
 
+  /* gère les entrées clavier du joueur */
   function onKeyPress(key) {
     if (gameStatus.value !== "playing") return;
 
@@ -177,6 +188,7 @@ export function useGameLogic() {
     currentGuess.value = "";
   }
 
+  /* statut de la lettre (correct, present, absent) */
   function getLetterStatus(letter) {
     letter = letter.toUpperCase();
     let foundCorrect = false;
@@ -199,6 +211,7 @@ export function useGameLogic() {
     return "absent";
   }
 
+  /* calcule les couleurs pour chaque lettre des tentatives */
   const coloredGuesses = computed(() => {
     return guesses.value.map((guess) => {
       return guess.split("").map((letter, index) => {
@@ -213,17 +226,18 @@ export function useGameLogic() {
     });
   });
 
+  /* utiliser un indice pour révéler une lettre du mot */
   function useHint() {
     if (hintsUsed.value >= 2 || gameStatus.value !== "playing") {
       return;
     }
 
-    // Créer un tableau des lettres déjà révélées
+    // créer un tableau des lettres déjà révélées
     const revealedLetters = new Set(
       revealedHints.value.map((hint) => hint.letter)
     );
 
-    // Trouver les positions disponibles (non révélées)
+    // trouver les positions disponibles (non révélées)
     const availablePositions = Array.from(
       { length: solution.value.length },
       (_, i) => i
@@ -231,7 +245,7 @@ export function useGameLogic() {
       (pos) => !revealedHints.value.some((hint) => hint.position === pos)
     );
 
-    // Filtrer les positions pour ne garder que celles dont la lettre n'a pas encore été révélée
+    // filtrer les positions pour ne garder que celles dont la lettre n'a pas encore été révélée
     const validPositions = availablePositions.filter(
       (pos) => !revealedLetters.has(solution.value[pos])
     );
@@ -266,26 +280,26 @@ export function useGameLogic() {
 
   return {
     currentGuess,
-    guesses,
     coloredGuesses,
     gameStatus,
     solution,
+    maxAttempts,
+    wordLength,
     onKeyPress,
     getLetterStatus,
     restartGame,
-    maxAttempts,
-    wordLength,
     gamesPlayed,
     wins,
     currentStreak,
+    guesses,
     isExpertMode,
     toggleExpertMode,
+    hintsRemaining,
+    useHint,
+    revealedHints,
     changeLanguage,
     currentLanguage,
     errorMessage,
     messages: computed(() => messages[currentLanguage.value]),
-    hintsRemaining,
-    useHint,
-    revealedHints,
   };
 }

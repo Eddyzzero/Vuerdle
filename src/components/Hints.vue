@@ -1,5 +1,6 @@
 <template>
   <div class="flex flex-col items-center gap-2">
+    <!-- Bouton indice -->
     <button
       @click="useHint"
       :disabled="hintsRemaining === 0 || gameStatus !== 'playing'"
@@ -14,6 +15,7 @@
       <span class="text-sm font-bold">Indice ({{ hintsRemaining }})</span>
     </button>
 
+    <!-- affichage des indices -->
     <div
       v-if="revealedHints.length > 0"
       class="flex flex-wrap justify-center gap-2 mt-2"
@@ -38,14 +40,17 @@
 export default {
   name: "Hints",
   props: {
+    // nbr d'indices restants
     hintsRemaining: {
       type: Number,
       required: true,
     },
+    // état du jeu
     gameStatus: {
       type: String,
       required: true,
     },
+    // liste des indices déjà révélés
     revealedHints: {
       type: Array,
       required: true,
@@ -53,6 +58,7 @@ export default {
   },
   emits: ["useHint"],
   methods: {
+    /* event pour utiliser un indice*/
     useHint() {
       this.$emit("useHint");
     },

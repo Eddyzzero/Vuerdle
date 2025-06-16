@@ -8,6 +8,7 @@
       Vuerdle
     </h1>
     <div class="flex gap-2">
+      <!-- bouton mode expert -->
       <button
         @click="toggleExpertMode"
         class="p-2 transition-colors duration-200 ease-in-out border-b-2 rounded-lg motion-preset-pop"
@@ -30,6 +31,7 @@
     class="min-h-screen flex justify-center items-center flex-col bg-amber-100 dark:bg-[#073B4C] transition-colors duration-200"
   >
     <main class="max-w-lg px-4 mx-auto space-y-6">
+      <!-- grid -->
       <GameGrid
         :guesses="coloredGuesses"
         :current-guess="currentGuess"
@@ -37,6 +39,7 @@
         :wordLength="wordLength"
       />
 
+      <!-- indices -->
       <Hints
         :hints-remaining="hintsRemaining"
         :game-status="gameStatus"
@@ -44,6 +47,7 @@
         @use-hint="useHint"
       />
 
+      <!-- clavier -->
       <Keyboard
         @letter="handleLetter"
         @enter="handleEnter"
@@ -52,6 +56,7 @@
         :guesses="guesses"
       />
 
+      <!-- affichage des statistiques -->
       <Score
         v-if="showStats"
         :games-played="gamesPlayed"
@@ -59,6 +64,7 @@
         :current-streak="currentStreak"
       />
 
+      <!-- modal de fin de partie -->
       <Modal
         :is-open="showModal"
         :word="solution"
@@ -95,10 +101,12 @@ export default {
     Hints,
   },
   setup() {
+    // état local de l'application
     const showModal = ref(false);
     const showStats = ref(false);
     const modalMessage = ref("");
 
+    // utilisation de la logique de jeu
     const {
       currentGuess,
       coloredGuesses,
@@ -124,6 +132,7 @@ export default {
       messages,
     } = useGameLogic();
 
+    // gestionnaires d'événements pour les interactions utilisateur
     function handleLetter(letter) {
       onKeyPress(letter);
     }
@@ -151,7 +160,7 @@ export default {
       restartGame();
     }
 
-    // Gérer le clavier
+    // gestionnaire d'événements clavier
     function handleKeyDown(event) {
       if (showModal.value || showStats.value) return;
 
@@ -166,6 +175,7 @@ export default {
       }
     }
 
+    // configuration des listeners
     onMounted(() => {
       window.addEventListener("keydown", handleKeyDown);
     });
@@ -174,7 +184,7 @@ export default {
       window.removeEventListener("keydown", handleKeyDown);
     });
 
-    // Observer les changements de gameStatus
+    // watch des changements d'état du jeu
     watch(gameStatus, (newStatus) => {
       if (newStatus === "win") {
         modalMessage.value = messages.value.win;

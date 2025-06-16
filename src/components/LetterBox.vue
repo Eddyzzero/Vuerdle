@@ -20,10 +20,12 @@
 export default {
   name: "LetterBox",
   props: {
+    // lettre à afficher dans la case
     letter: {
       type: String,
       default: "",
     },
+    // statut de la lettre (correct, present, absent)
     status: {
       type: [String, null],
       default: null,

@@ -1,3 +1,4 @@
+<!-- Template d'une touche du clavier -->
 <template>
   <button
     @click="$emit('press', letter)"
@@ -21,11 +22,15 @@
 export default {
   name: "KeyboardKey",
   props: {
+    // la lettre ou le symbole à afficher sur la touche
     letter: { type: String, required: true },
+    // le statut de la lettre (correct, present, absent)
     status: { type: String, default: null },
+    // si la touche a déjà été utilisée
     used: { type: Boolean, default: false },
   },
   computed: {
+    /* calcule la classe CSS en fonction du statut de la lettre */
     statusClass() {
       switch (this.status) {
         case "correct":
