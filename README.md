@@ -47,8 +47,9 @@ npm run build
 
 ## 👥 Contributors
 
-- Jhon Florez - Lead Developer [@jhonflorez](https://github.com/jhonflorez)
-- [Add other contributors here]
+- Jhon - Junior Developer [@jhonflorez](https://github.com/jhonflorez)
+- Minh - Junior Developer [@trmnh](https://github.com/trmnh)
+- Rowan - Junior Developer [@RoRo141414](https://github.com/RoRo141414)
 
 ## 🎮 How to Play
 
