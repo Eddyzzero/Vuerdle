@@ -1,9 +1,13 @@
 // Fonction pour nettoyer un mot : retirer les accents et mettre en majuscule
+//avec les metheodes de String.normalize et replace
 function cleanWord(word) {
-  return word
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toUpperCase();
+  return (
+    word
+      // ceci a ete trouvé sur https://stackoverflow.com/questions/990904/remove-accents-diacritics-in-a-string-in-javascript
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toUpperCase()
+  );
 }
 
 // Configuration des APIs par langue
@@ -27,9 +31,11 @@ export async function getRandomWord(length = 5, lang = "en") {
       lang = "fr";
     }
 
+    //
     const response = await fetch(API_CONFIG[lang].randomWord(length));
     const data = await response.json();
 
+    /* Vérifier si la réponse contient un mot et nettoyer le mot */
     if (data && data[0]) {
       return cleanWord(data[0]);
     }

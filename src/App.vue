@@ -1,23 +1,15 @@
 <template>
-  <header
-    class="p-4 flex justify-between items-center bg-amber-200 dark:bg-[#073B4C]/90"
-  >
-    <h1
-      class="text-4xl font-bold text-gray-900 dark:text-white motion-preset-confetti"
-    >
+  <header class="p-4 flex justify-between items-center bg-amber-200 dark:bg-[#073B4C]/90">
+    <h1 class="text-4xl font-bold text-gray-900 dark:text-white motion-preset-confetti">
       Vuerdle
     </h1>
     <div class="flex gap-2">
       <!-- bouton mode expert -->
-      <button
-        @click="toggleExpertMode"
-        class="p-2 transition-colors duration-200 ease-in-out border-b-2 rounded-lg motion-preset-pop"
-        :class="
-          isExpertMode
-            ? 'bg-red-400 text-gray-900 border-red-600'
-            : 'bg-amber-500 text-amber-100 border-amber-600'
-        "
-      >
+      <button @click="toggleExpertMode"
+        class="p-2 transition-colors duration-200 ease-in-out border-b-2 rounded-lg motion-preset-pop" :class="isExpertMode
+          ? 'bg-red-400 text-gray-900 border-red-600'
+          : 'bg-amber-500 text-amber-100 border-amber-600'
+          ">
         <span class="text-sm font-bold">{{
           isExpertMode ? "Mode Expert" : "Mode Normal"
         }}</span>
@@ -27,51 +19,29 @@
       <DarkMode />
     </div>
   </header>
+
+  <!-- Conteneur principal de l'application -->
   <div
-    class="min-h-screen flex justify-center items-center flex-col bg-amber-100 dark:bg-[#073B4C] transition-colors duration-200"
-  >
+    class="min-h-screen flex justify-center items-center flex-col bg-amber-100 dark:bg-[#073B4C] transition-colors duration-200">
     <main class="max-w-lg px-4 mx-auto space-y-6">
       <!-- grid -->
-      <GameGrid
-        :guesses="coloredGuesses"
-        :current-guess="currentGuess"
-        :maxAttempts="maxAttempts"
-        :wordLength="wordLength"
-      />
+      <GameGrid :guesses="coloredGuesses" :current-guess="currentGuess" :maxAttempts="maxAttempts"
+        :wordLength="wordLength" />
 
       <!-- indices -->
-      <Hints
-        :hints-remaining="hintsRemaining"
-        :game-status="gameStatus"
-        :revealed-hints="revealedHints"
-        @use-hint="useHint"
-      />
+      <Hints :hints-remaining="hintsRemaining" :game-status="gameStatus" :revealed-hints="revealedHints"
+        @use-hint="useHint" />
 
       <!-- clavier -->
-      <Keyboard
-        @letter="handleLetter"
-        @enter="handleEnter"
-        @delete="handleDelete"
-        :getLetterStatus="getLetterStatus"
-        :guesses="guesses"
-      />
+      <Keyboard @letter="handleLetter" @enter="handleEnter" @delete="handleDelete" :getLetterStatus="getLetterStatus"
+        :guesses="guesses" />
 
       <!-- affichage des statistiques -->
-      <Score
-        v-if="showStats"
-        :games-played="gamesPlayed"
-        :wins="wins"
-        :current-streak="currentStreak"
-      />
+      <Score v-if="showStats" :games-played="gamesPlayed" :wins="wins" :current-streak="currentStreak" />
 
       <!-- modal de fin de partie -->
-      <Modal
-        :is-open="showModal"
-        :word="solution"
-        :message="modalMessage"
-        @close="closeModal"
-        @next-word="startNewGame"
-      />
+      <Modal :is-open="showModal" :word="solution" :message="modalMessage" @close="closeModal"
+        @next-word="startNewGame" />
     </main>
   </div>
 </template>
@@ -184,7 +154,7 @@ export default {
       window.removeEventListener("keydown", handleKeyDown);
     });
 
-    // watch des changements d'état du jeu
+    // Regarde des changements d'état du jeu
     watch(gameStatus, (newStatus) => {
       if (newStatus === "win") {
         modalMessage.value = messages.value.win;

@@ -16,6 +16,8 @@ export default {
       word: null,
     };
   },
+  // Méthode pour récupérer un mot aléatoire
+  // cree un mot aléatoire en utilisant l'API
   async created() {
     try {
       this.word = await getRandomWord();

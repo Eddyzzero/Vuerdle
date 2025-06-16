@@ -1,17 +1,16 @@
 <template>
-  <div
-    class="transition-all duration-200 rounded-lg letter-box"
-    :class="[
-      status,
-      letter
-        ? 'border-gray-400 dark:border-gray-500 shadow-sm'
-        : 'border-gray-200 dark:border-gray-700',
-      {
-        'animate-reveal': status === 'correct',
-        'animate-pop': status === 'present',
-      },
-    ]"
-  >
+  <!-- Composant pour afficher une case de lettre dans le jeu Wordle -->
+  <!-- La case peut afficher une lettre et son statut (correct, présent, absent) -->
+  <div class="transition-all duration-200 rounded-lg letter-box" :class="[
+    status,
+    letter
+      ? 'border-gray-400 dark:border-gray-500 shadow-sm'
+      : 'border-gray-200 dark:border-gray-700',
+    {
+      'animate-reveal': status === 'correct',
+      'animate-pop': status === 'present',
+    },
+  ]">
     {{ letter }}
   </div>
 </template>
@@ -34,7 +33,11 @@ export default {
 };
 </script>
 
+
 <style scoped>
+/* Styles pour la boîte de lettre */
+/* Utilisation de la fonction theme() pour les couleurs */
+/* Les couleurs sont définies dans le fichier de configuration Tailwind CSS */
 .letter-box {
   width: min(3.5rem, calc((100vw - 2rem) / 7));
   height: min(3.5rem, calc((100vw - 2rem) / 7));

@@ -1,9 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx,vue}", "./src/**/*.css"],
-  darkMode: "class",
+  darkMode: "class", // active dark mode avec une classe
   theme: {
     extend: {
+      // Ajout de la rotation pour révéler les lettres
+      // et de l'animation pop pour les boutons
       keyframes: {
         reveal: {
           "0%": { transform: "rotateX(0deg)" },
@@ -51,5 +53,6 @@ module.exports = {
       },
     },
   },
+  // Utilisation de Tailwind CSS Motion pour les animations
   plugins: [require("tailwindcss-motion")],
 };
