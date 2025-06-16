@@ -18,6 +18,44 @@ const API_CONFIG = {
   },
 };
 
+// Liste de mots de secours en cas d'échec de l'API
+const FALLBACK_WORDS = {
+  en: [
+    "APPLE",
+    "BEACH",
+    "CLOUD",
+    "DREAM",
+    "EARTH",
+    "FLAME",
+    "GRASS",
+    "HEART",
+    "JUICE",
+    "KNIFE",
+    "LIGHT",
+    "MONEY",
+    "NIGHT",
+    "OCEAN",
+    "PEACE",
+  ],
+  fr: [
+    "ARBRE",
+    "BONHEUR",
+    "CHANCE",
+    "DROLE",
+    "ETOILE",
+    "FLEUR",
+    "GENTIL",
+    "HIVER",
+    "JARDIN",
+    "LIVRE",
+    "MUSIQUE",
+    "NATURE",
+    "OISEAU",
+    "PLAGE",
+    "QUIET",
+  ],
+};
+
 // API pour obtenir un mot aléatoire
 export async function getRandomWord(length = 5, lang = "en") {
   try {
@@ -36,7 +74,12 @@ export async function getRandomWord(length = 5, lang = "en") {
 
     throw new Error("Format de réponse invalide");
   } catch (error) {
-    console.error("Erreur lors de la récupération du mot:", error);
-    throw error;
+    console.warn(
+      "Utilisation de la liste de mots de secours suite à l'échec de l'API"
+    );
+    // Utiliser la liste de secours en cas d'échec
+    const fallbackList = FALLBACK_WORDS[lang] || FALLBACK_WORDS.fr;
+    const randomIndex = Math.floor(Math.random() * fallbackList.length);
+    return fallbackList[randomIndex];
   }
 }
